@@ -1,0 +1,124 @@
+  1/120 real_002           oracle=False greedy=False
+  2/120 real_003           oracle=False greedy=False
+  3/120 real_001           oracle=False greedy=False
+  4/120 real_007           oracle=False greedy=False
+  5/120 real_008           oracle=False greedy=False
+  6/120 real_009           oracle=False greedy=False
+  7/120 real_010           oracle=False greedy=False
+  8/120 real_011           oracle=False greedy=False
+  9/120 real_012           oracle=False greedy=False
+ 10/120 real_006           oracle=False greedy=False
+ 11/120 real_005           oracle=False greedy=False
+ 12/120 real_015           oracle=False greedy=False
+ 13/120 real_004           oracle=False greedy=False
+ 14/120 real_017           oracle=False greedy=False
+ 15/120 real_018           oracle=True  greedy=True
+ 16/120 real_019           oracle=False greedy=False
+ 17/120 real_020           oracle=False greedy=False
+ 18/120 seed0_diff6        oracle=False greedy=False
+ 19/120 real_016           oracle=False greedy=False
+ 20/120 real_014           oracle=False greedy=False
+ 21/120 seed104_diff8      oracle=False greedy=False
+ 22/120 seed1108_diff2     oracle=True  greedy=True
+ 23/120 seed111_diff3      oracle=True  greedy=True
+ 24/120 seed11_diff6       oracle=False greedy=False
+ 25/120 seed1206_diff2     oracle=True  greedy=True
+ 26/120 seed121_diff3      oracle=True  greedy=True
+ 27/120 seed10_diff10      oracle=False greedy=False
+ 28/120 seed101_diff9      oracle=False greedy=False
+ 29/120 seed129_diff3      oracle=True  greedy=True
+ 30/120 seed12_diff5       oracle=False greedy=False
+ 31/120 seed125_diff10     oracle=False greedy=False
+ 32/120 seed1457_diff2     oracle=True  greedy=True
+ 33/120 seed122_diff10     oracle=True  greedy=False
+ 34/120 seed13_diff10      oracle=False greedy=False
+ 35/120 seed1508_diff2     oracle=True  greedy=True
+ 36/120 seed1560_diff2     oracle=True  greedy=True
+ 37/120 seed15_diff5       oracle=False greedy=True
+ 38/120 seed1665_diff2     oracle=True  greedy=True
+ 39/120 seed146_diff9      oracle=False greedy=False
+ 40/120 seed16_diff4       oracle=False greedy=False
+ 41/120 seed1743_diff2     oracle=True  greedy=True
+ 42/120 seed14_diff10      oracle=True  greedy=False
+ 43/120 seed18_diff7       oracle=False greedy=False
+ 44/120 seed176_diff9      oracle=False greedy=False
+ 45/120 seed17_diff8       oracle=False greedy=False
+ 46/120 seed196_diff10     oracle=False greedy=False
+ 47/120 seed19_diff6       oracle=False greedy=False
+ 48/120 seed20_diff3       oracle=False greedy=False
+ 49/120 seed1_diff8        oracle=False greedy=False
+ 50/120 seed210_diff2      oracle=True  greedy=True
+ 51/120 seed21_diff5       oracle=False greedy=False
+ 52/120 seed22_diff4       oracle=False greedy=False
+ 53/120 seed24_diff6       oracle=False greedy=False
+ 54/120 seed25_diff4       oracle=False greedy=False
+ 55/120 seed26_diff5       oracle=True  greedy=True
+ 56/120 seed23_diff6       oracle=False greedy=False
+ 57/120 seed27_diff5       oracle=False greedy=False
+ 58/120 seed29_diff3       oracle=False greedy=False
+ 59/120 seed2_diff6        oracle=False greedy=False
+ 60/120 seed300016_diff1   oracle=True  greedy=True
+ 61/120 seed300025_diff1   oracle=True  greedy=True
+ 62/120 seed300042_diff1   oracle=True  greedy=True
+ 63/120 seed197_diff10     oracle=False greedy=False
+ 64/120 seed300069_diff1   oracle=True  greedy=True
+ 65/120 seed300060_diff1   oracle=True  greedy=True
+ 66/120 seed300078_diff1   oracle=True  greedy=True
+ 67/120 seed300092_diff1   oracle=False greedy=False
+ 68/120 seed300087_diff1   oracle=True  greedy=True
+ 69/120 seed300116_diff1   oracle=True  greedy=True
+ 70/120 seed300119_diff1   oracle=True  greedy=True
+ 71/120 seed30_diff3       oracle=True  greedy=True
+ 72/120 seed32_diff5       oracle=False greedy=False
+ 73/120 seed33_diff7       oracle=False greedy=False
+ 74/120 seed34_diff4       oracle=True  greedy=True
+ 75/120 seed35_diff3       oracle=True  greedy=True
+ 76/120 seed36_diff8       oracle=False greedy=False
+ 77/120 seed37_diff7       oracle=False greedy=False
+ 78/120 seed38_diff4       oracle=False greedy=False
+ 79/120 seed28_diff8       oracle=False greedy=False
+ 80/120 seed3_diff4        oracle=False greedy=False
+ 81/120 seed39_diff7       oracle=False greedy=False
+ 82/120 seed40_diff7       oracle=False greedy=False
+ 83/120 seed31_diff8       oracle=False greedy=False
+ 84/120 seed42_diff6       oracle=False greedy=False
+ 85/120 seed44_diff2       oracle=True  greedy=True
+ 86/120 seed43_diff7       oracle=False greedy=False
+ 87/120 seed45_diff4       oracle=False greedy=False
+ 88/120 seed47_diff7       oracle=False greedy=False
+ 89/120 seed48_diff4       oracle=False greedy=False
+ 90/120 seed49_diff5       oracle=True  greedy=True
+ 91/120 seed500003_diff9   oracle=False greedy=False
+ 92/120 seed500004_diff7   oracle=False greedy=False
+ 93/120 seed500008_diff9   oracle=False greedy=False
+ 94/120 seed46_diff7       oracle=False greedy=False
+ 95/120 seed41_diff9       oracle=False greedy=False
+ 96/120 seed500065_diff9   oracle=False greedy=False
+ 97/120 seed503_diff2      oracle=True  greedy=True
+ 98/120 seed53_diff5       oracle=True  greedy=True
+ 99/120 seed54_diff6       oracle=True  greedy=True
+100/120 seed51_diff9       oracle=False greedy=False
+101/120 seed58_diff5       oracle=False greedy=False
+102/120 seed55_diff8       oracle=False greedy=False
+103/120 seed60_diff3       oracle=True  greedy=True
+104/120 seed500060_diff9   oracle=True  greedy=False
+105/120 seed63_diff6       oracle=False greedy=False
+106/120 seed5_diff10       oracle=False greedy=False
+107/120 seed6_diff4        oracle=False greedy=False
+108/120 seed75_diff3       oracle=True  greedy=True
+109/120 seed7_diff7        oracle=False greedy=False
+110/120 seed84_diff8       oracle=False greedy=False
+111/120 seed89_diff10      oracle=False greedy=False
+112/120 seed8_diff4        oracle=True  greedy=True
+113/120 seed91_diff8       oracle=False greedy=False
+114/120 seed64_diff6       oracle=False greedy=False
+115/120 seed95_diff8       oracle=False greedy=False
+116/120 seed96_diff3       oracle=True  greedy=True
+117/120 seed82_diff10      oracle=False greedy=False
+118/120 seed93_diff9       oracle=False greedy=False
+119/120 seed9_diff5        oracle=False greedy=False
+120/120 real_013           oracle=False greedy=False
+easy 20 oracle 19 greedy 19 oracle fits better than truth 20
+medium 40 oracle 14 greedy 15 oracle fits better than truth 40
+hard 40 oracle 3 greedy 0 oracle fits better than truth 40
+real 20 oracle 1 greedy 1 oracle fits better than truth 20

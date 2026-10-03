@@ -1,0 +1,9 @@
+name: lab
+transport: stdio
+command: {{PYTHON}}
+args: [-m, lab.lab_server]
+env:
+  PYTHONPATH: {{REPO}}
+  STARGAZER_TASK: {{TASK}}
+  STARGAZER_RUN_DIR: {{RUN_DIR}}
+tools: [task_summary, ledger, periodogram, record_verdict]

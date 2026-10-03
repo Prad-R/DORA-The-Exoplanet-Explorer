@@ -1,0 +1,41 @@
+# Stratified subset, fixed by random.Random(0): 8 easy, 14 medium, 14 hard, 4 real.
+seed300092_diff1
+seed300116_diff1
+seed300025_diff1
+seed300078_diff1
+seed503_diff2
+seed1560_diff2
+seed44_diff2
+seed1743_diff2
+seed96_diff3
+seed60_diff3
+seed35_diff3
+seed75_diff3
+seed16_diff4
+seed25_diff4
+seed6_diff4
+seed27_diff5
+seed15_diff5
+seed21_diff5
+seed63_diff6
+seed19_diff6
+seed42_diff6
+seed24_diff6
+seed43_diff7
+seed7_diff7
+seed46_diff7
+seed39_diff7
+seed104_diff8
+seed28_diff8
+seed36_diff8
+seed500008_diff9
+seed41_diff9
+seed101_diff9
+seed196_diff10
+seed122_diff10
+seed5_diff10
+seed82_diff10
+real_012  # HD 209458, 1 planet
+real_007  # HD 12661, 2 planets
+real_018  # HD 69830, 3 planets
+real_005  # HD 10180, 5 planets

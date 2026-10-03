@@ -1,0 +1,3470 @@
+[
+ {
+  "task_id": "real_001",
+  "tier": "real",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 639,
+  "min_K_over_sigma": 21.445327368223847,
+  "min_snr": 383.3258536346432,
+  "truth_rms_over_sigma": 3.302192938428601,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -1999.8136167112743,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.876241907710068
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.6042488693681032,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "real_002",
+  "tier": "real",
+  "difficulty": 9,
+  "n_planets": 2,
+  "n_obs": 48,
+  "min_K_over_sigma": 6.656281871317604,
+  "min_snr": 32.60898833773217,
+  "truth_rms_over_sigma": 5.591442177047904,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -1343.4549750453357,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.19203532850303104
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.16069312473493247,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "real_003",
+  "tier": "real",
+  "difficulty": 10,
+  "n_planets": 4,
+  "n_obs": 119,
+  "min_K_over_sigma": 1.6512434767138748,
+  "min_snr": 12.737071824156148,
+  "truth_rms_over_sigma": 15.32289589422725,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -27209.571559653832,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.08425691357183726
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.5,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "real_004",
+  "tier": "real",
+  "difficulty": 8,
+  "n_planets": 4,
+  "n_obs": 162,
+  "min_K_over_sigma": 1.9786057930540168,
+  "min_snr": 17.807452137486152,
+  "truth_rms_over_sigma": 96.72867602158802,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -1594403.0780111488,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.0377322434984341
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.47084308124515556,
+   "n_found": 6
+  }
+ },
+ {
+  "task_id": "real_005",
+  "tier": "real",
+  "difficulty": 6,
+  "n_planets": 5,
+  "n_obs": 190,
+  "min_K_over_sigma": 5.4678326776205255,
+  "min_snr": 53.293840620593386,
+  "truth_rms_over_sigma": 16.17127302432816,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -46007.7756750701,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.0703855995036536
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.10079175578971848,
+   "n_found": 5
+  }
+ },
+ {
+  "task_id": "real_006",
+  "tier": "real",
+  "difficulty": 10,
+  "n_planets": 7,
+  "n_obs": 190,
+  "min_K_over_sigma": 1.5515469746230381,
+  "min_snr": 15.122609277961285,
+  "truth_rms_over_sigma": 16.081741362362887,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -47592.4592674813,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.05801960432749209
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.41805163539048895,
+   "n_found": 5
+  }
+ },
+ {
+  "task_id": "real_007",
+  "tier": "real",
+  "difficulty": 4,
+  "n_planets": 2,
+  "n_obs": 106,
+  "min_K_over_sigma": 18.35956169016982,
+  "min_snr": 133.65962662346104,
+  "truth_rms_over_sigma": 46.90428004161754,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -186947.8254767729,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.07151007486388941
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.05583982519825592,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "real_008",
+  "tier": "real",
+  "difficulty": 9,
+  "n_planets": 4,
+  "n_obs": 380,
+  "min_K_over_sigma": 1.146884899673995,
+  "min_snr": 15.808717370142451,
+  "truth_rms_over_sigma": 4.885345659742676,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -45860.42067777533,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.28536418411320114
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.17258308170689157,
+   "n_found": 3
+  }
+ },
+ {
+  "task_id": "real_009",
+  "tier": "real",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 88,
+  "min_K_over_sigma": 22.14781056828724,
+  "min_snr": 146.91195516575357,
+  "truth_rms_over_sigma": 25.260837291451224,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -51466.71098368998,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.010716901612657946
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.010716901419822247,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "real_010",
+  "tier": "real",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 33,
+  "min_K_over_sigma": 58.97386887666128,
+  "min_snr": 239.5529878119808,
+  "truth_rms_over_sigma": 2.5368229270152383,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -28.054065457372587,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9256515931883994
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9256518184473925,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "real_011",
+  "tier": "real",
+  "difficulty": 7,
+  "n_planets": 3,
+  "n_obs": 187,
+  "min_K_over_sigma": 3.614442507952144,
+  "min_snr": 34.94999569596174,
+  "truth_rms_over_sigma": 7.350325634892478,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -6857.048273797142,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.015809710695960228
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.23814508723254718,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "real_012",
+  "tier": "real",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 85,
+  "min_K_over_sigma": 23.349078589578543,
+  "min_snr": 152.2173693004461,
+  "truth_rms_over_sigma": 3.6262039782560933,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -43.05936201515965,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8697805275229605
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8697799698272044,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "real_013",
+  "tier": "real",
+  "difficulty": 7,
+  "n_planets": 2,
+  "n_obs": 373,
+  "min_K_over_sigma": 1.2269416312738688,
+  "min_snr": 16.755728735633408,
+  "truth_rms_over_sigma": 3.7953687877341764,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -1717.590798308163,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.017433332140350255
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.9769081169937575,
+   "n_found": 6
+  }
+ },
+ {
+  "task_id": "real_014",
+  "tier": "real",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 207,
+  "min_K_over_sigma": 35.85819219512761,
+  "min_snr": 364.8031380985237,
+  "truth_rms_over_sigma": 24.647045369297874,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -626775.4549967744,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.06255607914510586
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.6814895355271605,
+   "n_found": 4
+  }
+ },
+ {
+  "task_id": "real_015",
+  "tier": "real",
+  "difficulty": 4,
+  "n_planets": 2,
+  "n_obs": 52,
+  "min_K_over_sigma": 3.3565951081308523,
+  "min_snr": 17.1153439555893,
+  "truth_rms_over_sigma": 5.934892743522319,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -1598.5586351019492,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.05725857135216406
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.19216770922915152,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "real_016",
+  "tier": "real",
+  "difficulty": 6,
+  "n_planets": 3,
+  "n_obs": 129,
+  "min_K_over_sigma": 5.606009625031129,
+  "min_snr": 45.02292396744393,
+  "truth_rms_over_sigma": 9.750877398158115,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -12292.429653347865,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.15547997510695827
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.057896151519282096,
+   "n_found": 4
+  }
+ },
+ {
+  "task_id": "real_017",
+  "tier": "real",
+  "difficulty": 8,
+  "n_planets": 2,
+  "n_obs": 58,
+  "min_K_over_sigma": 13.37633376203166,
+  "min_snr": 72.03376182377798,
+  "truth_rms_over_sigma": 20.22967092988668,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -24461.16480591025,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.08344545065115792
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.08344547566313029,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "real_018",
+  "tier": "real",
+  "difficulty": 5,
+  "n_planets": 3,
+  "n_obs": 74,
+  "min_K_over_sigma": 2.8662514689052108,
+  "min_snr": 17.434727037468846,
+  "truth_rms_over_sigma": 3.9713971526914635,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -808.6696762495709,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8688840905815174
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8688873989649963,
+   "n_found": 3
+  }
+ },
+ {
+  "task_id": "real_019",
+  "tier": "real",
+  "difficulty": 5,
+  "n_planets": 2,
+  "n_obs": 95,
+  "min_K_over_sigma": 10.36155386105472,
+  "min_snr": 71.41208178409346,
+  "truth_rms_over_sigma": 8.469482745648802,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -6653.797215929151,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.49465926705391444
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.4944228038433571,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "real_020",
+  "tier": "real",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 21,
+  "min_K_over_sigma": 8.289952218313688,
+  "min_snr": 26.86251536454102,
+  "truth_rms_over_sigma": 4.9566334163684855,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -431.9214483598542,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.08657687317379273
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.08657691051370495,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed0_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 2,
+  "n_obs": 73,
+  "min_K_over_sigma": 1.5301927356162413,
+  "min_snr": 9.244694586455743,
+  "truth_rms_over_sigma": 0.9982758244128374,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -12.775640239669542,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5058108535817878
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5058095227811443,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed101_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 3,
+  "n_obs": 48,
+  "min_K_over_sigma": 1.6335630992676393,
+  "min_snr": 8.002792111690361,
+  "truth_rms_over_sigma": 1.1700783125146206,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -23.820293271654094,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.40236767044994554
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.22024580042251418,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed104_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 3,
+  "n_obs": 55,
+  "min_K_over_sigma": 0.8919681688140394,
+  "min_snr": 4.67752053869146,
+  "truth_rms_over_sigma": 1.0420408711873788,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -23.50488183907123,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.4672699032532317
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.3126347374604346,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed10_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 4,
+  "n_obs": 61,
+  "min_K_over_sigma": 0.9352644898805546,
+  "min_snr": 5.165166968643104,
+  "truth_rms_over_sigma": 1.2961670340982614,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -47.41092137900495,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.14399466641974887
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.022558604214164113,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed1108_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 27.23386736970364,
+  "min_snr": 172.2421007664048,
+  "truth_rms_over_sigma": 1.047120680685097,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -8.163668749210444,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9499942330808355
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9499942137675527,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed111_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 72,
+  "min_K_over_sigma": 13.244039726906733,
+  "min_snr": 79.4642383614404,
+  "truth_rms_over_sigma": 1.0037332419407456,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -2.1457270583889,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.939366493974196
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9393671164814105,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed11_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 1,
+  "n_obs": 58,
+  "min_K_over_sigma": 0.7140727488459919,
+  "min_snr": 3.845399436819231,
+  "truth_rms_over_sigma": 0.8418078603596431,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -5.134201387616258,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.11489019410590813
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed1206_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 24.521960626306527,
+  "min_snr": 155.09049654419547,
+  "truth_rms_over_sigma": 0.960595431080183,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -3.827935760179173,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9601156231972166
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9601156370874664,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed121_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 2,
+  "n_obs": 62,
+  "min_K_over_sigma": 10.31619185633111,
+  "min_snr": 57.43812537779765,
+  "truth_rms_over_sigma": 1.0538814177190683,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -11.539101437234649,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8148868314402915
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8148883342561375,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed122_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 3,
+  "n_obs": 73,
+  "min_K_over_sigma": 0.40428853250153385,
+  "min_snr": 2.4425184624065586,
+  "truth_rms_over_sigma": 1.457029574637976,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -37.19776411244857,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9108250295258232
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.45601558537985687,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed125_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 3,
+  "n_obs": 44,
+  "min_K_over_sigma": 0.4943925947443552,
+  "min_snr": 2.3189068179289216,
+  "truth_rms_over_sigma": 1.652208168646766,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -50.32751701828593,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.17658474229264826
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed129_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 67,
+  "min_K_over_sigma": 12.326333531665252,
+  "min_snr": 71.3438132859756,
+  "truth_rms_over_sigma": 1.0439275293558012,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -3.476384058072199,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9238273795452083
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9238272261011783,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed12_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 1,
+  "n_obs": 59,
+  "min_K_over_sigma": 2.55585582863237,
+  "min_snr": 13.881850416794036,
+  "truth_rms_over_sigma": 1.0066134759722916,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -17.967575792933047,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.38277920062200327
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.3827806833836395,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed13_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 3,
+  "n_obs": 43,
+  "min_K_over_sigma": 0.5477652930249829,
+  "min_snr": 2.5398831762935528,
+  "truth_rms_over_sigma": 2.654041055106825,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -200.78913372489444,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9213426724864314
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.47470427960263406,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed1457_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 22.226937435743324,
+  "min_snr": 140.57549541402273,
+  "truth_rms_over_sigma": 0.8294965588588895,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -0.7584347338050179,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9800289472009572
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9800289441035945,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed146_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 3,
+  "n_obs": 44,
+  "min_K_over_sigma": 0.22088245188131375,
+  "min_snr": 1.0360305333725544,
+  "truth_rms_over_sigma": 1.2135899001558823,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -23.81055918058746,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.0
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed14_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 3,
+  "n_obs": 77,
+  "min_K_over_sigma": 0.3396791537040361,
+  "min_snr": 2.107653720906727,
+  "truth_rms_over_sigma": 1.422302595924937,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -48.178427137454946,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8886299634342708
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.3705153391026321,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed1508_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 28.01008075448642,
+  "min_snr": 177.15130525884936,
+  "truth_rms_over_sigma": 1.1699491411313307,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -5.694113545626237,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9405971045549895
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9405970705334302,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed1560_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 23.319684057627093,
+  "min_snr": 147.48663187523772,
+  "truth_rms_over_sigma": 1.4087720361974236,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -3.9192968383599123,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9583850358615376
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9583849608022971,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed15_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 2,
+  "n_obs": 63,
+  "min_K_over_sigma": 7.617682976399549,
+  "min_snr": 42.75413966812122,
+  "truth_rms_over_sigma": 1.336587355899496,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -19.181222556086993,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.7686918359845347
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8204335149973361,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed1665_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 28.00506376417823,
+  "min_snr": 177.11957502610363,
+  "truth_rms_over_sigma": 1.0811052056535781,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -3.152711252864833,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9685501580472363
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.96855015236472,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed16_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 2,
+  "n_obs": 56,
+  "min_K_over_sigma": 2.4241381688842596,
+  "min_snr": 12.827333477054491,
+  "truth_rms_over_sigma": 1.0189271532596915,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -4.064940928141311,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6082168026409257
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed1743_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 5.960751117701493,
+  "min_snr": 37.699100194662265,
+  "truth_rms_over_sigma": 1.0527746821356538,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -2.1099640875830232,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8813358606545183
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8813347349091393,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed176_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 3,
+  "n_obs": 49,
+  "min_K_over_sigma": 0.3693997353138696,
+  "min_snr": 1.8284354046626707,
+  "truth_rms_over_sigma": 1.1920421929929392,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -33.307043859739565,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.04918407478357831
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.4626341830771703,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed17_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 3,
+  "n_obs": 46,
+  "min_K_over_sigma": 3.557621120704124,
+  "min_snr": 17.061751518675962,
+  "truth_rms_over_sigma": 1.317677109273975,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -25.266344719287417,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.3367683712778577
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.015530806440366418,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed18_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 1,
+  "n_obs": 68,
+  "min_K_over_sigma": 0.450504964827418,
+  "min_snr": 2.626872778297648,
+  "truth_rms_over_sigma": 1.230213755190256,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -7.341956652179363,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.016454358158218534
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed196_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 3,
+  "n_obs": 43,
+  "min_K_over_sigma": 0.9314742317164594,
+  "min_snr": 4.319068331661704,
+  "truth_rms_over_sigma": 0.9467046096797881,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -20.844688429173516,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.28240918027947726
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.10703677240011256,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed197_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 3,
+  "n_obs": 43,
+  "min_K_over_sigma": 0.10758897747271404,
+  "min_snr": 0.49886956570121577,
+  "truth_rms_over_sigma": 1.051935554246689,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -16.425423544981243,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.4936364556334291
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.05986781878527703,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed19_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 1,
+  "n_obs": 72,
+  "min_K_over_sigma": 0.5636595808554726,
+  "min_snr": 3.381957485132836,
+  "truth_rms_over_sigma": 1.1620117893003967,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -9.112923602335457,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.038848485656155056
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed1_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 2,
+  "n_obs": 44,
+  "min_K_over_sigma": 0.583172875705705,
+  "min_snr": 2.7353232469115887,
+  "truth_rms_over_sigma": 0.867860454248777,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -5.709640353777559,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.2543831038453354
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.26295107338541235,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed20_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 68,
+  "min_K_over_sigma": 25.64421516135384,
+  "min_snr": 149.53018498691677,
+  "truth_rms_over_sigma": 1.6320833851732541,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -2.1678482638554897,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9677330298428692
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9677328907317972,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed210_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 2,
+  "n_obs": 80,
+  "min_K_over_sigma": 12.495883092336758,
+  "min_snr": 79.0309038939446,
+  "truth_rms_over_sigma": 1.0225270188792857,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -13.632776243471483,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8858591333705745
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8858592631891882,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed21_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 2,
+  "n_obs": 65,
+  "min_K_over_sigma": 3.644269838526451,
+  "min_snr": 20.775534561589314,
+  "truth_rms_over_sigma": 0.8854712576452181,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -6.029791990384751,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.24258273929445934
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.07145355154801575,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed22_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 1,
+  "n_obs": 53,
+  "min_K_over_sigma": 10.425546069443639,
+  "min_snr": 53.668783174406244,
+  "truth_rms_over_sigma": 1.4038037201644509,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -17.00363738120916,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.7741412067550827
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.7741422165516398,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed23_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 2,
+  "n_obs": 66,
+  "min_K_over_sigma": 0.9254290936055454,
+  "min_snr": 5.316185403145961,
+  "truth_rms_over_sigma": 1.2086125142145068,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -26.28166814039082,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.23474366807499714
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.0035508966064822234,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed24_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 1,
+  "n_obs": 50,
+  "min_K_over_sigma": 2.1030626743633483,
+  "min_snr": 10.515313371816742,
+  "truth_rms_over_sigma": 1.5649935696296846,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -26.638198109641564,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.1314573395883824
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.13145982832501799,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed25_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 1,
+  "n_obs": 52,
+  "min_K_over_sigma": 2.5357346182838665,
+  "min_snr": 12.929760299922187,
+  "truth_rms_over_sigma": 0.9318663063570044,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -3.8383692863836814,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6352847464548648
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6352858940086219,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed26_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 1,
+  "n_obs": 43,
+  "min_K_over_sigma": 28.045068169009898,
+  "min_snr": 130.03963143978402,
+  "truth_rms_over_sigma": 1.457167199051534,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -17.719579842310253,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8976943299734843
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8976945373837938,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed27_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 2,
+  "n_obs": 55,
+  "min_K_over_sigma": 2.3029631938101667,
+  "min_snr": 12.076840873391472,
+  "truth_rms_over_sigma": 0.90709793306525,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -8.791470720930533,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6975136666165113
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.7330417135480446,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed28_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 3,
+  "n_obs": 42,
+  "min_K_over_sigma": 1.6072440751964865,
+  "min_snr": 7.365317634857195,
+  "truth_rms_over_sigma": 0.9665364811669187,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -19.155034033275626,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.2119055250186442
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.11669273282969156,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed29_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 2.9909870158369505,
+  "min_snr": 18.91666284406975,
+  "truth_rms_over_sigma": 1.2662478235451258,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -7.191477860693823,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6427382688402888
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6427423057666495,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed2_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 1,
+  "n_obs": 70,
+  "min_K_over_sigma": 0.3049837032511484,
+  "min_snr": 1.8043079209789716,
+  "truth_rms_over_sigma": 0.9933808086101986,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -5.452118535968964,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.0
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed300016_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 101,
+  "min_K_over_sigma": 61.859403212719975,
+  "min_snr": 439.59365461140413,
+  "truth_rms_over_sigma": 1.0869104052559306,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -1.9551580185975013,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.990260774565721
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9902607743217295,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed300025_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 53.70851257641894,
+  "min_snr": 339.6824589625641,
+  "truth_rms_over_sigma": 0.9499713383096757,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -7.227101414787569,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9729793552100986
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.97297935100443,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed300042_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 98,
+  "min_K_over_sigma": 21.906334971535884,
+  "min_snr": 153.34434480075117,
+  "truth_rms_over_sigma": 1.0128164667716841,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -1.0207184226520098,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9767191317972752
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9767192320128333,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed300060_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 108,
+  "min_K_over_sigma": 23.817503533766082,
+  "min_snr": 175.02219181398635,
+  "truth_rms_over_sigma": 1.4094180483372378,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -13.206850811631114,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9367154548905934
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9367156225382621,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed300069_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 114,
+  "min_K_over_sigma": 135.49474433601415,
+  "min_snr": 1022.962886586246,
+  "truth_rms_over_sigma": 1.405775244241668,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -7.782628060619629,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9910513626709734
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9910513694597269,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed300078_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 17.844739486714037,
+  "min_snr": 112.8600420607207,
+  "truth_rms_over_sigma": 1.2516142055645034,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -8.321045505477741,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9138404049641943
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9138405400642388,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed300087_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 95,
+  "min_K_over_sigma": 10.34120665699249,
+  "min_snr": 71.27184835771222,
+  "truth_rms_over_sigma": 1.1091286157573328,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -6.745124503126192,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8930879276172018
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8930879765866728,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed300092_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 95,
+  "min_K_over_sigma": 6.6608694679991425,
+  "min_snr": 45.906874739104715,
+  "truth_rms_over_sigma": 1.083986234755561,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -10.471964151768134,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.7746296352984853
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.7746291844557283,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed300116_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 94,
+  "min_K_over_sigma": 20.94968094975644,
+  "min_snr": 143.62377658013185,
+  "truth_rms_over_sigma": 0.9254799539264658,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -7.759903020451304,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9364951019956101
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9364949102807935,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed300119_diff1",
+  "tier": "easy",
+  "difficulty": 1,
+  "n_planets": 1,
+  "n_obs": 99,
+  "min_K_over_sigma": 38.92293683277115,
+  "min_snr": 273.8471345085625,
+  "truth_rms_over_sigma": 1.138275091534393,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -5.197402040886061,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9739447159462941
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9739447168423091,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed30_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 70,
+  "min_K_over_sigma": 20.338229160074917,
+  "min_snr": 120.3225863579663,
+  "truth_rms_over_sigma": 1.0212897311264844,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -12.301736213249,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9044576404958933
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9044576391182371,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed31_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 3,
+  "n_obs": 42,
+  "min_K_over_sigma": 0.8124847213652052,
+  "min_snr": 3.723272736651157,
+  "truth_rms_over_sigma": 0.989129773010679,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -20.034559397794908,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.49166471876868134
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.3463901956861475,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed32_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 1,
+  "n_obs": 56,
+  "min_K_over_sigma": 2.7557854944178444,
+  "min_snr": 14.582246169737585,
+  "truth_rms_over_sigma": 1.3648032750919947,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -14.40676552372895,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.4229606260366778
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.4229609284387206,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed33_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 1,
+  "n_obs": 42,
+  "min_K_over_sigma": 1.0342535265870372,
+  "min_snr": 4.73954507336012,
+  "truth_rms_over_sigma": 0.900973089141279,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -1.6716562303211617,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.33560605061089926
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed34_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 1,
+  "n_obs": 55,
+  "min_K_over_sigma": 25.256354069387225,
+  "min_snr": 132.44543810245767,
+  "truth_rms_over_sigma": 1.021667299015953,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -5.387118479029965,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9423847158922961
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9423847705339066,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed35_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 67,
+  "min_K_over_sigma": 49.70146523308248,
+  "min_snr": 287.6680276839308,
+  "truth_rms_over_sigma": 1.1436421415960694,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -9.234890235160236,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9662031000708653
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9662031364361249,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed36_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 1,
+  "n_obs": 40,
+  "min_K_over_sigma": 0.578006561991973,
+  "min_snr": 2.584923928109996,
+  "truth_rms_over_sigma": 1.1163946660253035,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -4.353006416181302,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.01805599345936907
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed37_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 2,
+  "n_obs": 55,
+  "min_K_over_sigma": 0.3018281825265721,
+  "min_snr": 1.5828003423049217,
+  "truth_rms_over_sigma": 1.5526225444450925,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -33.91068044763517,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5190503107936872
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.123224913236743,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed38_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 1,
+  "n_obs": 74,
+  "min_K_over_sigma": 4.746237444520467,
+  "min_snr": 28.870235287427473,
+  "truth_rms_over_sigma": 1.0432254326010593,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -11.786221274972945,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6501994501996992
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6501997650247946,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed39_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 2,
+  "n_obs": 66,
+  "min_K_over_sigma": 0.4989275127207183,
+  "min_snr": 2.866120352905565,
+  "truth_rms_over_sigma": 0.8809626425196901,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -14.037389178918716,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.44926402093810114
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.6669332684908674,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed3_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 1,
+  "n_obs": 57,
+  "min_K_over_sigma": 3.5990708746440454,
+  "min_snr": 19.213780681590624,
+  "truth_rms_over_sigma": 1.0494800309271708,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -6.653038189389235,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6541698829065499
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.654169931134175,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed40_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 2,
+  "n_obs": 68,
+  "min_K_over_sigma": 1.0230919539013277,
+  "min_snr": 5.9655999672019275,
+  "truth_rms_over_sigma": 1.4458461938705414,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -44.8681816328463,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.2566932910286414
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.1117248452029374,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed41_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 4,
+  "n_obs": 46,
+  "min_K_over_sigma": 0.4145788633102941,
+  "min_snr": 1.9882503815626633,
+  "truth_rms_over_sigma": 0.8944899078737346,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -13.659196996249705,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.0
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.03568694031042541,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed42_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 2,
+  "n_obs": 58,
+  "min_K_over_sigma": 0.9184500102390534,
+  "min_snr": 4.946004672251675,
+  "truth_rms_over_sigma": 0.7528216470911576,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -5.000975277262512,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6476600344955511
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.6091100318178712,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed43_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 2,
+  "n_obs": 68,
+  "min_K_over_sigma": 0.997295491615932,
+  "min_snr": 5.8151820365585944,
+  "truth_rms_over_sigma": 1.5165494859799413,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -22.03613302388078,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.11058539226668912
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.1447483992689153,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed44_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 30.41404276147595,
+  "min_snr": 192.3552959600424,
+  "truth_rms_over_sigma": 0.9778649669751359,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -6.770300494616322,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9542368543890462
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9542368625788792,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed45_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 2,
+  "n_obs": 56,
+  "min_K_over_sigma": 7.391382716708016,
+  "min_snr": 39.11152102662078,
+  "truth_rms_over_sigma": 1.168049404496971,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -19.759131675275626,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.7508998662865316
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.02400913694268833,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed46_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 3,
+  "n_obs": 65,
+  "min_K_over_sigma": 0.5398858379558947,
+  "min_snr": 3.077822823981833,
+  "truth_rms_over_sigma": 1.046458877549687,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -13.90070956211838,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.0
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.3738656088737321,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed47_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 2,
+  "n_obs": 79,
+  "min_K_over_sigma": 0.7129288592671732,
+  "min_snr": 4.480688402003839,
+  "truth_rms_over_sigma": 0.9118539657490036,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -7.457336538277957,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.23336037350803285
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.017977152665093477,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed48_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 1,
+  "n_obs": 55,
+  "min_K_over_sigma": 13.728123310515981,
+  "min_snr": 71.99088598420037,
+  "truth_rms_over_sigma": 1.431327148462534,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -23.629355938722483,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.7972993640413681
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.7972995092914112,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed49_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 1,
+  "n_obs": 41,
+  "min_K_over_sigma": 5.781756239585066,
+  "min_snr": 26.178014762135945,
+  "truth_rms_over_sigma": 0.8114603264963796,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -1.351318140531646,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8691622109718531
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.8691621345796444,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed500003_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 2,
+  "n_obs": 75,
+  "min_K_over_sigma": 0.8461990954297791,
+  "min_snr": 5.181890011519119,
+  "truth_rms_over_sigma": 1.9669112627000747,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -132.16332979401813,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.655733308675576
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.797182672586557,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed500004_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 1,
+  "n_obs": 64,
+  "min_K_over_sigma": 0.38899471849057715,
+  "min_snr": 2.2004864263235135,
+  "truth_rms_over_sigma": 1.3299254481122755,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -14.675445950109975,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.0
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed500008_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 2,
+  "n_obs": 78,
+  "min_K_over_sigma": 0.9922402751700866,
+  "min_snr": 6.196538532367467,
+  "truth_rms_over_sigma": 2.36715402531396,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -160.6709151653581,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.6245443295096763
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.44683077781282277,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed500060_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 4,
+  "n_obs": 69,
+  "min_K_over_sigma": 1.347299017589642,
+  "min_snr": 7.913589904495399,
+  "truth_rms_over_sigma": 0.9726730845886804,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -16.77049234284206,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9622425107317408
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.7234314271555947,
+   "n_found": 3
+  }
+ },
+ {
+  "task_id": "seed500065_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 2,
+  "n_obs": 48,
+  "min_K_over_sigma": 1.9459672996374366,
+  "min_snr": 9.53325388050676,
+  "truth_rms_over_sigma": 1.61029078254032,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -36.63708491776433,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.17155868933203533
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.19930150343517325,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed503_diff2",
+  "tier": "easy",
+  "difficulty": 2,
+  "n_planets": 1,
+  "n_obs": 80,
+  "min_K_over_sigma": 10.590133191138047,
+  "min_snr": 66.97788321708704,
+  "truth_rms_over_sigma": 1.1069854523595233,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -6.47557541137283,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.882476821225729
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.882476658235388,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed51_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 3,
+  "n_obs": 72,
+  "min_K_over_sigma": 0.5641861339329478,
+  "min_snr": 3.385116803597687,
+  "truth_rms_over_sigma": 1.6095810708056921,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -29.33434439144952,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5552833178461316
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.494303565320648,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed53_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 1,
+  "n_obs": 46,
+  "min_K_over_sigma": 29.407459436212534,
+  "min_snr": 141.03322098472816,
+  "truth_rms_over_sigma": 1.2793053571219781,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -3.1775700316644873,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9568231571809904
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9568231628263573,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed54_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 1,
+  "n_obs": 73,
+  "min_K_over_sigma": 26.814371051434396,
+  "min_snr": 161.9996390837526,
+  "truth_rms_over_sigma": 1.2671538532158475,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -8.33749860370898,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9403918453650117
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9403919229875386,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed55_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 3,
+  "n_obs": 60,
+  "min_K_over_sigma": 0.6817892772492726,
+  "min_snr": 3.7343136661457037,
+  "truth_rms_over_sigma": 1.2226697224379666,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -24.62542366309367,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.29008038889682225
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.18086207867626136,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed58_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 1,
+  "n_obs": 77,
+  "min_K_over_sigma": 1.937696982113559,
+  "min_snr": 12.023093586425325,
+  "truth_rms_over_sigma": 1.0033756126757936,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -5.672981350407952,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5233728851203633
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5233787312548213,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed5_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 3,
+  "n_obs": 42,
+  "min_K_over_sigma": 1.4016477912574792,
+  "min_snr": 6.423157101105061,
+  "truth_rms_over_sigma": 1.5381010384734581,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -53.01544375643053,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.1368387749919414
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.11449070442705478,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed60_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 57,
+  "min_K_over_sigma": 60.58141237805544,
+  "min_snr": 323.4162402895381,
+  "truth_rms_over_sigma": 1.004355952850173,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -1.7655998668705593,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9844992429965284
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9844992402534349,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed63_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 2,
+  "n_obs": 45,
+  "min_K_over_sigma": 2.3131668431017824,
+  "min_snr": 10.972313748274471,
+  "truth_rms_over_sigma": 0.9567888603869789,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -8.570422450698771,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5056691124319164
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5144917482190043,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed64_diff6",
+  "tier": "medium",
+  "difficulty": 6,
+  "n_planets": 3,
+  "n_obs": 80,
+  "min_K_over_sigma": 2.155343665089671,
+  "min_snr": 13.631590244197008,
+  "truth_rms_over_sigma": 1.1069780918975975,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -7.807939993440925,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.1110059287666869
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.06444212741052435,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed6_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 2,
+  "n_obs": 63,
+  "min_K_over_sigma": 5.251178411111029,
+  "min_snr": 29.472165736802147,
+  "truth_rms_over_sigma": 1.2675623165752374,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -14.78690071380231,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5447754964869062
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.6067103040110632,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed75_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 1,
+  "n_obs": 62,
+  "min_K_over_sigma": 23.360389263861467,
+  "min_snr": 130.06514284516493,
+  "truth_rms_over_sigma": 1.363736947658136,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -3.6229171826674644,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9563729219331353
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9563731529940054,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed7_diff7",
+  "tier": "hard",
+  "difficulty": 7,
+  "n_planets": 2,
+  "n_obs": 52,
+  "min_K_over_sigma": 0.30320123750284744,
+  "min_snr": 1.5460290265724994,
+  "truth_rms_over_sigma": 0.8898369034518403,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -10.823817159920338,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.3525510829129061
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed82_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 4,
+  "n_obs": 49,
+  "min_K_over_sigma": 0.31441566294234136,
+  "min_snr": 1.5562781316445542,
+  "truth_rms_over_sigma": 1.5445153331779538,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -49.34009549276942,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.045245228070111415
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": -0.3872630338962749,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed84_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 2,
+  "n_obs": 54,
+  "min_K_over_sigma": 1.7886314228921016,
+  "min_snr": 9.294001501390005,
+  "truth_rms_over_sigma": 1.4190487377884462,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -28.249829897861957,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.3588807456101747
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.3588853958156152,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed89_diff10",
+  "tier": "hard",
+  "difficulty": 10,
+  "n_planets": 2,
+  "n_obs": 62,
+  "min_K_over_sigma": 0.7731219572912869,
+  "min_snr": 4.304560881927821,
+  "truth_rms_over_sigma": 2.0662935377588814,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -47.53735781203767,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.3936963633452802
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.528733765476754,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed8_diff4",
+  "tier": "medium",
+  "difficulty": 4,
+  "n_planets": 1,
+  "n_obs": 45,
+  "min_K_over_sigma": 47.2299787284619,
+  "min_snr": 224.03145993486424,
+  "truth_rms_over_sigma": 1.22595295994335,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -3.6634957454158155,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9729851568173528
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.9729851679372391,
+   "n_found": 1
+  }
+ },
+ {
+  "task_id": "seed91_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 1,
+  "n_obs": 66,
+  "min_K_over_sigma": 1.0058190752921978,
+  "min_snr": 5.7779906890989805,
+  "truth_rms_over_sigma": 1.3911157274144692,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -16.134171588350796,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.09610392375721186
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": false,
+   "ok_match": false,
+   "ok_count": false,
+   "n_found": 0
+  }
+ },
+ {
+  "task_id": "seed93_diff9",
+  "tier": "hard",
+  "difficulty": 9,
+  "n_planets": 4,
+  "n_obs": 79,
+  "min_K_over_sigma": 14.773671756864978,
+  "min_snr": 92.851087223542,
+  "truth_rms_over_sigma": 1.8936303531803549,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -98.72063995293098,
+  "oracle": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.36119689185907133
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": false,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.23828785563516441,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed95_diff8",
+  "tier": "hard",
+  "difficulty": 8,
+  "n_planets": 2,
+  "n_obs": 63,
+  "min_K_over_sigma": 0.9762223610107698,
+  "min_snr": 5.479034412314766,
+  "truth_rms_over_sigma": 1.5119586059376797,
+  "truth_passes_rms": false,
+  "oracle_bic_minus_truth_bic": -22.776196679811676,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.34005101385880343
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.33766521428194013,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed96_diff3",
+  "tier": "medium",
+  "difficulty": 3,
+  "n_planets": 2,
+  "n_obs": 75,
+  "min_K_over_sigma": 13.15620036039517,
+  "min_snr": 80.5649445919708,
+  "truth_rms_over_sigma": 1.1287583925931306,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -9.982206333112458,
+  "oracle": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.931865556737656
+  },
+  "greedy": {
+   "success": true,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": true,
+   "ok_count": true,
+   "match_score": 0.931865917595302,
+   "n_found": 2
+  }
+ },
+ {
+  "task_id": "seed9_diff5",
+  "tier": "medium",
+  "difficulty": 5,
+  "n_planets": 3,
+  "n_obs": 76,
+  "min_K_over_sigma": 2.9287944869314813,
+  "min_snr": 18.054301747058762,
+  "truth_rms_over_sigma": 0.9536833773481036,
+  "truth_passes_rms": true,
+  "oracle_bic_minus_truth_bic": -8.294033269958874,
+  "oracle": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": true,
+   "match_score": 0.5224746176108683
+  },
+  "greedy": {
+   "success": false,
+   "ok_rms": true,
+   "ok_delta_bic": true,
+   "ok_match": false,
+   "ok_count": false,
+   "match_score": 0.47504122550975214,
+   "n_found": 2
+  }
+ }
+]

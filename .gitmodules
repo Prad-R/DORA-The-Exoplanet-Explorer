@@ -1,0 +1,3 @@
+[submodule "third_party/Stargazer"]
+	path = third_party/Stargazer
+	url = https://github.com/AIPS-UofT/Stargazer

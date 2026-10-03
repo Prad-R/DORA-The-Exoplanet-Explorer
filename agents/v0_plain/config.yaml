@@ -1,0 +1,30 @@
+# Control arm: one plain agent with Stargazer's two reference tools.
+# Placeholders in {{...}} are filled per task by runner/materialize.py.
+spec_version: 1
+name: stargazer_v0
+description: Plain single-agent baseline for Stargazer radial-velocity tasks.
+
+executor:
+  type: omnigent
+  timeout: {{MAX_TIME}}
+  config:
+    harness: claude-sdk
+
+prompt: |
+  You analyse radial-velocity data to find the planets orbiting a star. The task
+  brief arrives as the first message. Work only through the two `stargazer`
+  tools, PythonREPL and submit_action; you have no other data source. Stop when
+  a submission succeeds or when your budget is used up.
+
+tools:
+  timeout: 300
+
+guardrails:
+  policies:
+    cap_tool_calls:
+      type: function
+      on: [tool_call]
+      function:
+        path: omnigent.policies.builtins.safety.max_tool_calls_per_session
+        arguments:
+          limit: {{MAX_TOOL_CALLS}}
