@@ -10,7 +10,10 @@ import sys
 from typing import Any, Dict, List, Optional
 
 import numpy as np
-from mcp.server.mcpserver import MCPServer
+try:  # MCP <1.0 exposed MCPServer; current MCP uses FastMCP.
+    from mcp.server.mcpserver import MCPServer
+except ModuleNotFoundError:
+    from mcp.server.fastmcp import FastMCP as MCPServer
 
 from lab.episode import FORBIDDEN, from_env
 

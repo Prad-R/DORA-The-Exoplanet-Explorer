@@ -50,9 +50,13 @@ prompt: |
      the ones you chose and why.
   4. Experiments. Dispatch investigators in parallel on the chosen hypotheses.
   5. Review. Dispatch the critic on the leading fit.
-  6. Submit the reviewed fit with `submit_fit`. A submission is an experiment:
-     its feedback says which criterion failed and what that implies.
-  7. Update. Record a `decision` note saying what the result changed, then
+  6. Decide. Call `observe_or_conclude` with the reviewed leading fit and its
+     strongest competitor. This applies fixed numerical criteria; do not replace
+     its decision with your own confidence judgment. On `observe`, the new datum
+     is already in the shared dataset: return to step 1. On `unresolved`, stop and
+     report unresolved. On `conclude`, submit that reviewed fit with `submit_fit`.
+  7. A submission is an experiment: its feedback says which criterion failed
+     and what that implies. Record a `decision` note saying what changed, then
      return to step 2 with the hypotheses the feedback points to. The platform
      denies a resubmission of a configuration that already failed.
 
@@ -60,13 +64,13 @@ prompt: |
   wrong number of planets or an alias period, so prefer the hypothesis that
   survives the critic over the one with the lowest RMS.
 
-  Budget. Check `task_summary` for submissions and seconds left. An unsubmitted
-  answer scores nothing, so make a first submission before half the time is
-  gone even if it is rough. Stop when a submission succeeds or the submissions
-  are spent.
+  Budget. Check `task_summary` for submissions, observations, compute rounds and
+  seconds left. Reach `observe_or_conclude` before half the time is gone. Submit
+  only after it returns `conclude`; stop when submission succeeds, a limit is
+  reached, or the decision is `unresolved`.
 
-  Finish with a short report: the system you found, the evidence for it, what
-  remains uncertain, and the next experiment you would run.
+  Finish with a short report: `concluded` or `unresolved`, the system if one was
+  found, the numerical evidence, what remains uncertain, and the next experiment.
 
 tools:
   timeout: 300

@@ -1,4 +1,5 @@
 .venv/
+.omnigent-runtime/
 runs/
 __pycache__/
 *.pyc

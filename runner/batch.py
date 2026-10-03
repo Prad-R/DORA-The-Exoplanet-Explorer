@@ -11,13 +11,16 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
+from threading import Thread
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+OMNIGENT_RUNTIME = REPO / ".omnigent-runtime"
 sys.path.insert(0, str(REPO))
 
 from lab.episode import FORBIDDEN  # noqa: E402
@@ -33,38 +36,89 @@ def _jsonl(path: Path) -> list:
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
 
 
-def run_task(arm: str, task_id: str, out: Path) -> dict:
+def _pid_running(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+        return True
+    except (OSError, ValueError):
+        return False
+
+
+def run_task(arm: str, task_id: str, out: Path, max_observations: int = 3,
+             max_compute_rounds: int = 4, research_prompt: str = "",
+             live_logs: bool = False) -> dict:
+    omnigent = shutil.which("omnigent")
+    if not omnigent:
+        raise RuntimeError(
+            "Omnigent CLI was not found on PATH. Install/configure Omnigent, then reopen the shell "
+            "and verify with `omnigent --version`."
+        )
     run_dir = out / task_id
     result_path = run_dir / "result.json"
     if result_path.exists():
         return json.loads(result_path.read_text())
     # Several batch processes may share an output directory; one task, one owner.
     lock = out / f".{task_id}.lock"
-    if lock.exists() and Path(f"/proc/{lock.read_text().strip()}").exists():
-        return None
+    if lock.exists():
+        try:
+            if _pid_running(int(lock.read_text().strip())):
+                return None
+        except ValueError:
+            pass
     lock.write_text(str(os.getpid()))
     if run_dir.exists():
-        subprocess.run(["rm", "-rf", str(run_dir)], check=True)
+        shutil.rmtree(run_dir)
     run_dir.mkdir(parents=True)
-    agent_dir, brief = materialize(arm, task_id, run_dir)
+    agent_dir, brief = materialize(arm, task_id, run_dir,
+                                   max_observations=max_observations,
+                                   max_compute_rounds=max_compute_rounds,
+                                   research_prompt=research_prompt)
     (run_dir / "brief.md").write_text(brief)
     budget = json.loads((run_dir / "budget.json").read_text())
 
     started = time.time()
     timed_out = False
+    # Windows installations may deny writes to ~/.omnigent. Keep transient
+    # Omnigent state and its own diagnostics inside this writable checkout.
+    OMNIGENT_RUNTIME.mkdir(parents=True, exist_ok=True)
+    omnigent_env = {
+        **os.environ,
+        "PYTHONPATH": str(REPO),
+        "OMNIGENT_DATA_DIR": str(OMNIGENT_RUNTIME),
+        "OMNIGENT_CONFIG_HOME": str(OMNIGENT_RUNTIME),
+        "OMNIGENT_LOG_TO_STDERR": "1" if live_logs else "0",
+        # Omnigent's host protocol emits Unicode status markers. Force UTF-8
+        # for its Windows child processes instead of the legacy cp1252 codec.
+        "PYTHONUTF8": "1",
+        "PYTHONIOENCODING": "utf-8",
+    }
     with open(run_dir / "omnigent.out", "w") as fo, open(run_dir / "omnigent.err", "w") as fe:
+        popen_output = subprocess.PIPE if live_logs else fo
         proc = subprocess.Popen(
-            ["omnigent", "run", str(agent_dir), "-p", brief],
-            stdin=subprocess.DEVNULL, stdout=fo, stderr=fe, cwd=run_dir,
+            [omnigent, "run", str(agent_dir), "-p", brief],
+            stdin=subprocess.DEVNULL, stdout=popen_output,
+            stderr=subprocess.STDOUT if live_logs else fe, text=live_logs, cwd=run_dir,
             # lab.policies is imported by the Omnigent runner.
-            env={**os.environ, "PYTHONPATH": str(REPO)},
+            env=omnigent_env,
         )
+        tee = None
+        if live_logs:
+            def copy_output() -> None:
+                assert proc.stdout is not None
+                for line in proc.stdout:
+                    fo.write(line)
+                    fo.flush()
+                    print(f"[{task_id}] {line}", end="", flush=True)
+            tee = Thread(target=copy_output, daemon=True)
+            tee.start()
         try:
             proc.wait(timeout=budget["max_time"] + GRACE_S)
         except subprocess.TimeoutExpired:
             timed_out = True
             proc.kill()
             proc.wait()
+        if tee:
+            tee.join(timeout=5)
     duration = time.time() - started
 
     session = SESSION_RE.search((run_dir / "omnigent.err").read_text())
@@ -75,7 +129,7 @@ def run_task(arm: str, task_id: str, out: Path) -> dict:
         """Export one session (the top agent or a sub-agent) and fold in its usage and calls."""
         nonlocal cost, model
         path = run_dir / f"{name}.jsonl"
-        subprocess.run(["omnigent", "session", "export", "--id", session_id, "--output", str(path)],
+        subprocess.run([omnigent, "session", "export", "--id", session_id, "--output", str(path)],
                        capture_output=True)
         seen = set()
         for rec in _jsonl(path):
@@ -107,6 +161,9 @@ def run_task(arm: str, task_id: str, out: Path) -> dict:
     state_dir = run_dir / "state"
     state = json.loads((state_dir / "state.json").read_text()) if (state_dir / "state.json").exists() else {}
     subs = [s for s in _jsonl(state_dir / "submissions.jsonl") if s.get("evaluated")]
+    observations = _jsonl(state_dir / "observations.jsonl")
+    decisions = [r for r in _jsonl(state_dir / "ledger.jsonl")
+                 if r.get("kind") == "decision" and r.get("status") in ("conclude", "unresolved")]
     criteria = ("ok_delta_bic", "ok_rms", "ok_match", "ok_count")
     best = max(subs, key=lambda s: (s["success"], s["reward"]), default=None)
     tokens = {
@@ -121,6 +178,8 @@ def run_task(arm: str, task_id: str, out: Path) -> dict:
         "solved": bool(state.get("solved", False)),
         "submissions": len(subs),
         "submitted": bool(subs),
+        "follow_up_observations": len(observations),
+        "final_decision": decisions[-1]["status"] if decisions else None,
         "best_criteria": {c: bool(best["success_details"].get(c)) for c in criteria} if best else None,
         "best_match_score": best["success_details"].get("match_score") if best else None,
         "identical_resubmissions": len(subs) - len({json.dumps(s["payload"]["planets"], sort_keys=True) for s in subs}),
@@ -149,6 +208,10 @@ def main() -> None:
     ap.add_argument("--tasks", required=True, help="file with one task id per line, or comma-separated ids")
     ap.add_argument("--out", required=True)
     ap.add_argument("--workers", type=int, default=2)
+    ap.add_argument("--max-observations", type=int, default=3)
+    ap.add_argument("--max-compute-rounds", type=int, default=4)
+    ap.add_argument("--prompt", default="", help="research prompt prepended to the task brief")
+    ap.add_argument("--live-logs", action="store_true", help="tee Omnigent output to this terminal and run files")
     args = ap.parse_args()
 
     src = Path(args.tasks)
@@ -159,9 +222,15 @@ def main() -> None:
 
     results = []
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
-        futures = {pool.submit(run_task, args.arm, t, out): t for t in tasks}
+        futures = {pool.submit(run_task, args.arm, t, out, args.max_observations,
+                               args.max_compute_rounds, args.prompt, args.live_logs): t for t in tasks}
         for fut in as_completed(futures):
-            r = fut.result()
+            task_id = futures[fut]
+            try:
+                r = fut.result()
+            except Exception as exc:
+                print(f"[error] {task_id}: {exc}", file=sys.stderr, flush=True)
+                continue
             if r is None:  # owned by another batch process
                 continue
             results.append(r)

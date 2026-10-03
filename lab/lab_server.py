@@ -9,11 +9,15 @@ Configured by environment: STARGAZER_TASK, STARGAZER_RUN_DIR.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from typing import Any, Dict, List, Optional
 
 import numpy as np
-from mcp.server.mcpserver import MCPServer
+try:  # MCP <1.0 exposed MCPServer; current MCP uses FastMCP.
+    from mcp.server.mcpserver import MCPServer
+except ModuleNotFoundError:
+    from mcp.server.fastmcp import FastMCP as MCPServer
 
 from lab import rv
 from lab.episode import FORBIDDEN, from_env
@@ -42,9 +46,24 @@ def _fit_view(fit: Dict[str, Any]) -> Dict[str, Any]:
     return view
 
 
+def _refresh_data() -> None:
+    """Refresh this server after Episode persisted a follow-up observation."""
+    global data
+    data = rv.Data(episode.times, episode.rvs, episode.sigmas, np.asarray(episode.instruments), episode.star_mass_sun)
+    repl_globals.update(times_days=data.t, rvs_ms=data.y, sigmas_ms=data.s, instruments=data.inst)
+
+
+def _fit_model(fit: Dict[str, Any], times: np.ndarray) -> np.ndarray:
+    return np.sum(
+        [rv.planet_rv(times, data.t[0], p) for p in fit["planets"]], axis=0
+    ) if fit["planets"] else np.zeros_like(times)
+
+
 @mcp.tool()
 def task_summary() -> str:
     """Dataset facts and what is left of the budget."""
+    max_observations = int(os.environ.get("STARGAZER_MAX_OBSERVATIONS", "3"))
+    max_rounds = int(os.environ.get("STARGAZER_MAX_COMPUTE_ROUNDS", "4"))
     return json.dumps(
         {
             "n_obs": len(data.t),
@@ -56,6 +75,8 @@ def task_summary() -> str:
             "pass_criteria": "RMS <= 1.5 x median sigma, model preferred over a constant by BIC, "
             "correct planet count, and orbital parameters close to the true ones",
             "submissions_left": episode.submissions_left(),
+            "follow_up_observations_left": max(0, max_observations - len(episode.read("observations"))),
+            "compute_rounds_left": max(0, max_rounds - len(episode.read("observe_decisions"))),
             "seconds_left": int(episode.time_left()),
         }
     )
@@ -174,6 +195,93 @@ def submit_fit(fit_id: str, rationale: str) -> str:
     }
     episode.append("ledger", {"kind": "submission", "rationale": rationale, **outcome})
     return json.dumps(outcome)
+
+
+@mcp.tool()
+def observe_or_conclude(fit_ids: List[str]) -> str:
+    """Numerically decide whether to conclude or add one simulated observation.
+
+    Pass reviewed competing fit IDs after an analysis round. Evidence is sufficient
+    only when the best fit clears fixed RMS, BIC, residual-signal, detection-strength,
+    fit-quality, review, and model-separation thresholds. Otherwise the tool observes
+    at the feasible future time where the fitted models disagree most. Simulation is
+    available only for synthetic tasks; this tool never exposes simulator truth.
+    """
+    fits = [_load_fit(fid) for fid in fit_ids]
+    if len(fit_ids) < 2 or any(f is None for f in fits):
+        return "Pass at least two valid competing fit IDs from the current analysis round."
+    ranked = sorted(fits, key=lambda f: f["bic"])
+    best, second = ranked[:2]
+    residual_pg = rv.periodogram(data, resid=np.asarray(best["residuals"]), top_k=1)
+    residual_fap = residual_pg["peaks"][0]["fap"] if residual_pg["peaks"] else 1.0
+    verdicts = [r for r in episode.read("ledger") if r.get("kind") == "verdict" and r.get("fit_id") == best["id"]]
+    approved = bool(verdicts and verdicts[-1].get("verdict") == "approve")
+    min_strength = min((p["K_over_sigma_sqrtN"] for p in best["planets"]), default=0.0)
+    bic_margin = float(second["bic"] - best["bic"])
+    criteria = {
+        "review_approved": approved,
+        "rms_ok": bool(best["rms_ok"]),
+        "delta_bic_vs_null_gte_10": bool(best["delta_bic_vs_null"] >= 10.0),
+        "bic_margin_vs_runner_up_gte_10": bool(bic_margin >= 10.0),
+        "residual_fap_gte_1e_3": bool(residual_fap >= 1e-3),
+        "all_planet_strengths_gte_5": bool(best["planets"] and min_strength >= 5.0),
+        "no_fit_flags": not best["flags"],
+    }
+    evidence = {
+        "best_fit_id": best["id"],
+        "runner_up_fit_id": second["id"],
+        "bic_margin": bic_margin,
+        "rms_ms": best["rms_ms"],
+        "rms_limit_ms": best["rms_limit_ms"],
+        "residual_peak_fap": residual_fap,
+        "minimum_detection_strength": min_strength,
+        "criteria": criteria,
+    }
+    if all(criteria.values()):
+        result = {"status": "conclude", "fit": _fit_view(best), "evidence": evidence,
+                  "uncertainty": "Uncertainty is bounded by the runner-up BIC margin and the residual-periodogram threshold."}
+        episode.append("ledger", {"kind": "decision", **result})
+        return json.dumps(result)
+
+    rounds = len(episode.read("observe_decisions"))
+    observations = len(episode.read("observations"))
+    max_rounds = int(os.environ.get("STARGAZER_MAX_COMPUTE_ROUNDS", "4"))
+    max_observations = int(os.environ.get("STARGAZER_MAX_OBSERVATIONS", "3"))
+    if rounds >= max_rounds or observations >= max_observations or episode.time_left() <= 0:
+        result = {"status": "unresolved", "evidence": evidence,
+                  "reason": "Observation or compute limit reached before the numerical criteria were satisfied."}
+        episode.append("ledger", {"kind": "decision", **result})
+        return json.dumps(result)
+    if episode.task_id.startswith("real_"):
+        result = {"status": "unresolved", "evidence": evidence,
+                  "reason": "Simulated observing and real telescope control are disabled for real-data tasks."}
+        episode.append("ledger", {"kind": "decision", **result})
+        return json.dumps(result)
+
+    unique_times = np.unique(data.t)
+    cadence = float(np.median(np.diff(unique_times))) if len(unique_times) > 1 else 1.0
+    horizon = max(30.0 * max(cadence, 0.1), 0.25 * data.span)
+    candidates = np.linspace(float(data.t.max() + max(cadence, 0.1)), float(data.t.max() + horizon), 128)
+    predictions = np.stack([_fit_model(f, candidates) for f in ranked])
+    disagreement = np.max(predictions, axis=0) - np.min(predictions, axis=0)
+    chosen = int(np.argmax(disagreement))
+    sigma = float(np.median(data.s))
+    labels, counts = np.unique(data.inst, return_counts=True)
+    row = episode.simulate_observation(float(candidates[chosen]), sigma, str(labels[np.argmax(counts)]))
+    episode.append("observe_decisions", {"fit_ids": fit_ids, "time_days": row["time_days"], "evidence": evidence})
+    _refresh_data()
+    result = {
+        "status": "observe",
+        "observation": row,
+        "expected_model_separation_ms": float(disagreement[chosen]),
+        "observations_used": observations + 1,
+        "observations_left": max_observations - observations - 1,
+        "compute_rounds_left": max_rounds - rounds - 1,
+        "evidence": evidence,
+        "next": "Repeat the existing analyst, hypothesis, investigator, and critic cycle on the updated data.",
+    }
+    episode.append("ledger", {"kind": "decision", **result})
+    return json.dumps(result)
 
 
 repl_globals: Dict[str, Any] = {

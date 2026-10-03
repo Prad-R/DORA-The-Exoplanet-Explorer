@@ -1,8 +1,22 @@
 """Harness checks that need no LLM: truth passes, replay is counted, REPL is fenced."""
 import importlib
+import subprocess
 import sys
 
 import pytest
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="Windows locking regression")
+def test_windows_episode_lock_releases_cleanly(tmp_path):
+    code = (
+        "from pathlib import Path; "
+        "from lab.episode import Episode; "
+        f"Episode('seed96_diff3', Path({str(tmp_path)!r})); "
+        "print('ok')"
+    )
+    result = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip() == "ok"
 
 
 @pytest.fixture()

@@ -6,4 +6,6 @@ env:
   PYTHONPATH: {{REPO}}
   STARGAZER_TASK: {{TASK}}
   STARGAZER_RUN_DIR: {{RUN_DIR}}
+  STARGAZER_MAX_OBSERVATIONS: "{{MAX_OBSERVATIONS}}"
+  STARGAZER_MAX_COMPUTE_ROUNDS: "{{MAX_COMPUTE_ROUNDS}}"
 tools: [task_summary, ledger, periodogram, record_verdict]
