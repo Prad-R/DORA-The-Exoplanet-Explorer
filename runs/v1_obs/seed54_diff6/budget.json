@@ -1,0 +1,1 @@
+{"max_tokens": 450000, "max_submissions": 5, "max_time": 900, "tier": "medium", "difficulty": 6, "max_tool_calls": 60, "max_observations": 30, "obs_per_campaign": 10, "max_compute_rounds": 4}

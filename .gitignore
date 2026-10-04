@@ -15,3 +15,4 @@ runs/*/*/agent/
 runs/*/*/omnigent.out
 runs/*/*/omnigent.err
 .lock
+runs/*/.*.lock

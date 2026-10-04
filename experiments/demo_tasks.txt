@@ -1,0 +1,9 @@
+# Demo set for the v1 lab with observing: one or two tasks per regime.
+# Together with runs/v1_obs/seed15_diff5 (the pilot) this gives eight cases.
+seed44_diff2     # easy, 1 planet: clean solve expected
+seed96_diff3     # medium, 2 planets; oracle fit passes
+seed54_diff6     # medium, 1 planet; v0 on main over-counted first
+seed22_diff4     # medium, data-limited (strength 53.7): observing should matter
+seed45_diff4     # medium, 2 planets, data-limited (strength 39.1)
+seed196_diff10   # hard, third planet below the noise
+real_010         # real data; observing is disabled
