@@ -1,0 +1,10 @@
+{"t": 1791082692.5450473, "time_days": 281.39069923645945, "rv_ms": 4.160475296625684, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
+{"t": 1791082692.5514445, "time_days": 306.89069923645945, "rv_ms": -10.12156284604712, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
+{"t": 1791082692.5514445, "time_days": 319.64069923645945, "rv_ms": -15.369811033222332, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
+{"t": 1791082692.5534499, "time_days": 332.64069923645945, "rv_ms": -8.98876039247516, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
+{"t": 1791082692.554993, "time_days": 358.14069923645945, "rv_ms": 10.032652737111166, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
+{"t": 1791082692.5565288, "time_days": 370.89069923645945, "rv_ms": 26.834717614536295, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
+{"t": 1791082692.5580459, "time_days": 383.89069923645945, "rv_ms": 10.970070703493484, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
+{"t": 1791082692.5580459, "time_days": 409.39069923645945, "rv_ms": -5.923947176408272, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
+{"t": 1791082692.5580459, "time_days": 435.14069923645945, "rv_ms": -16.09281496889163, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
+{"t": 1791082692.5631578, "time_days": 448.64069923645945, "rv_ms": -10.25754861758858, "sigma_ms": 0.9294353655999098, "instrument": "instA", "kind": "simulated_follow_up"}
