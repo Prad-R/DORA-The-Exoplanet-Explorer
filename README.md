@@ -6,6 +6,8 @@ Built for the Hack-Nation × Databricks "Agentic Scientific Discovery" challenge
 
 ## The discovery loop
 
+![The discovery loop: a lead agent sends competing hypotheses to investigators, then either reports the result or collects targeted telescope data and starts another round](docs/discovery_loop.png)
+
 Each task is one star and a set of velocity measurements. The lab must report how many planets orbit it and on what orbits.
 
 1. **Evidence.** The analyst finds which periodic signals in the data are credible.
