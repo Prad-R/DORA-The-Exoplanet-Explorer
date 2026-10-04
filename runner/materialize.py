@@ -9,7 +9,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from lab.brief import MAX_TOOL_CALLS, lab_brief, task_brief  # noqa: E402
+from lab.brief import LAB_MAX_TOOL_CALLS, MAX_TOOL_CALLS, lab_brief, task_brief  # noqa: E402
 from lab.episode import Episode  # noqa: E402
 
 
@@ -20,38 +20,46 @@ def _venv_python() -> Path:
 
 
 def materialize(arm: str, task_id: str, run_dir: Path, human_gate: bool = False,
-                max_observations: int = 3, max_compute_rounds: int = 4,
+                max_observations: int = 30, max_compute_rounds: int = 4, obs_per_campaign: int = 10,
                 research_prompt: str = "") -> tuple[Path, str]:
-    """Return (agent directory, first message) for ``arm`` on ``task_id``."""
+    """Return (agent directory, first message) for ``arm`` on ``task_id``.
+
+    ``max_observations`` is the total number of follow-up points, taken in
+    campaigns of up to ``obs_per_campaign``.
+    """
     run_dir = Path(run_dir).resolve()
     episode = Episode(task_id, run_dir / "state")
     agent_dir = run_dir / "agent"
     if agent_dir.exists():
         shutil.rmtree(agent_dir)
     shutil.copytree(REPO / "agents" / arm, agent_dir)
+    baseline = arm.startswith("v0")
+    max_tool_calls = (MAX_TOOL_CALLS if baseline else LAB_MAX_TOOL_CALLS)[episode.tier]
     values = {
         "PYTHON": str(_venv_python()),
         "REPO": str(REPO),
         "TASK": task_id,
         "RUN_DIR": str(run_dir / "state"),
         "MAX_TIME": str(episode.budget["max_time"]),
-        "MAX_TOOL_CALLS": str(MAX_TOOL_CALLS[episode.tier]),
+        "MAX_TOOL_CALLS": str(max_tool_calls),
         "MAX_SUBMISSIONS": str(episode.budget["max_submissions"]),
         "HUMAN_GATE": "true" if human_gate else "false",
         "MAX_OBSERVATIONS": str(max_observations),
+        "OBS_PER_CAMPAIGN": str(obs_per_campaign),
         "MAX_COMPUTE_ROUNDS": str(max_compute_rounds),
     }
     for path in agent_dir.rglob("*"):
         if path.suffix in {".yaml", ".md"}:
-            text = path.read_text()
+            text = path.read_text(encoding="utf-8")
             for key, value in values.items():
                 text = text.replace("{{" + key + "}}", value)
-            path.write_text(text)
+            path.write_text(text, encoding="utf-8")
     budget = {**episode.budget, "tier": episode.tier, "difficulty": episode.task.truth_difficulty,
-              "max_tool_calls": MAX_TOOL_CALLS[episode.tier], "max_observations": max_observations,
-              "max_compute_rounds": max_compute_rounds}
+              "max_tool_calls": max_tool_calls, "max_observations": max_observations,
+              "obs_per_campaign": obs_per_campaign, "max_compute_rounds": max_compute_rounds}
     (run_dir / "budget.json").write_text(json.dumps(budget))
-    brief = task_brief(episode) if arm.startswith("v0") else lab_brief(episode)
+    brief = (task_brief(episode) if baseline
+             else lab_brief(episode, max_observations, obs_per_campaign, max_compute_rounds))
     if research_prompt.strip():
         brief = f"{research_prompt.strip()}\n\n{brief}"
     return agent_dir, brief
@@ -60,5 +68,5 @@ def materialize(arm: str, task_id: str, run_dir: Path, human_gate: bool = False,
 if __name__ == "__main__":
     arm, task_id, out = sys.argv[1:4]
     agent_dir, brief = materialize(arm, task_id, Path(out))
-    (Path(out) / "brief.md").write_text(brief)
+    (Path(out) / "brief.md").write_text(brief, encoding="utf-8")
     print(agent_dir)

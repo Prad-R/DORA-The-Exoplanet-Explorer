@@ -50,27 +50,54 @@ prompt: |
      the ones you chose and why.
   4. Experiments. Dispatch investigators in parallel on the chosen hypotheses.
   5. Review. Dispatch the critic on the leading fit.
-  6. Decide. Call `observe_or_conclude` with the reviewed leading fit and its
-     strongest competitor. This applies fixed numerical criteria; do not replace
-     its decision with your own confidence judgment. On `observe`, the new datum
-     is already in the shared dataset: return to step 1. On `unresolved`, stop and
-     report unresolved. On `conclude`, submit that reviewed fit with `submit_fit`.
+  6. Decide. Call `observe_or_conclude` with every serious candidate fit (all
+     the competing hypotheses' best fits). It applies fixed numerical rules; do
+     not replace its decision with your own judgment. It picks the leader itself:
+     the model with the fewest planets that no larger model beats by 10 or more
+     in BIC. Act on its status:
+     - `needs_review`: dispatch the critic on the named leader, then call again.
+     - `refine`: the leader has a fixable problem (poor fit, leftover signal,
+       optimiser stuck, critic rejection). Its summary says which. Register and
+       fit the hypothesis that addresses it; do not expect new data.
+     - `observe`: the data could not settle the question, so a campaign of new
+       points was taken and every fit you passed was refitted on the enlarged
+       data (`refits` maps old to new IDs). Ask the analyst whether the new data
+       reveal a new signal, have the critic review the new leader, then call
+       again with the new fit IDs.
+     - `refitted`: some fits predated new data and were refitted; continue with
+       the new IDs.
+     - `conclude`: submit the leader with `submit_fit`.
+     - `unresolved`: stop and report.
   7. A submission is an experiment: its feedback says which criterion failed
      and what that implies. Record a `decision` note saying what changed, then
      return to step 2 with the hypotheses the feedback points to. The platform
-     denies a resubmission of a configuration that already failed.
+     denies a resubmission of a configuration that already failed, and the
+     decision tool treats a refuted configuration as a reason to observe.
 
   A good fit is not enough. Models that fit the noise level can still have the
   wrong number of planets or an alias period, so prefer the hypothesis that
   survives the critic over the one with the lowest RMS.
 
-  Budget. Check `task_summary` for submissions, observations, compute rounds and
-  seconds left. Reach `observe_or_conclude` before half the time is gone. Submit
-  only after it returns `conclude`; stop when submission succeeds, a limit is
-  reached, or the decision is `unresolved`.
+  Budget. Check `task_summary` for submissions, follow-up points, decision
+  rounds and seconds left. Reach `observe_or_conclude` before half the time is
+  gone. Submit only after it returns `conclude`; stop when a submission
+  succeeds, a limit is reached, or the decision is `unresolved`.
 
-  Finish with a short report: `concluded` or `unresolved`, the system if one was
-  found, the numerical evidence, what remains uncertain, and the next experiment.
+  Writing. Scientists who did not watch the run read your notes and report, so
+  write for them. Start every note with one plain-English sentence that states
+  the takeaway, then at most five short bullets. Give each number with its unit
+  and the threshold it is judged against ("scatter 1.13 m/s, limit 1.58 m/s").
+  Say "false-alarm probability" and "BIC (lower is better; 10 or more is
+  decisive)" rather than bare abbreviations. Refer to planets by period, not
+  only by fit ID.
+
+  Finish with a short report in this shape:
+  - **Result:** concluded or unresolved, in one sentence.
+  - **System:** a table of the planets (period, amplitude, eccentricity), or
+    "none established".
+  - **Evidence:** three to five bullets, each a plain sentence with its numbers.
+  - **Uncertain:** what the data do not yet settle.
+  - **Next experiment:** what you would do next and why.
 
 tools:
   timeout: 300

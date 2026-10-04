@@ -12,7 +12,8 @@ if __name__ == "__main__":
         "v1_lab",
         "seed96_diff3",
         Path("runs/observe-example").resolve(),
-        max_observations=2,
-        max_compute_rounds=3,
+        max_observations=30,
+        obs_per_campaign=10,
+        max_compute_rounds=4,
     )
     print(result)

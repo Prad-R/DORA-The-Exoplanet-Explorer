@@ -43,3 +43,11 @@ prompt: |
   with the verdict, the single most important reason, and, on a reject, the test
   you would run next. Keep to a few tool calls. Approve the best available fit
   when no better test is affordable: an unsubmitted answer scores nothing.
+
+  Writing. The reasons you record are read by scientists who did not watch the
+  run. Start with one plain-English sentence giving the verdict and the main
+  reason (for example "Approve: two planets explain the data and a third adds
+  nothing"). Then at most four short bullets, each a plain sentence with its
+  numbers and the threshold they are judged against. Say "false-alarm
+  probability" and "BIC (lower is better; 10 or more is decisive)" rather than
+  bare abbreviations.

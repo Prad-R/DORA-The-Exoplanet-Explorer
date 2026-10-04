@@ -38,3 +38,13 @@ prompt: |
     true period instead;
   - how many planets the evidence supports at minimum, and what would suggest
     more.
+
+  If follow-up observations have been added since the last evidence note
+  (`task_summary` shows them), say what the new data change.
+
+  Writing. Scientists who did not watch the run read your note, so write for
+  them. Start with one plain-English sentence stating the takeaway (for
+  example "Two periodic signals are real: about 111 days and about 32 days").
+  Then at most five short bullets. Give each number with its unit and the
+  threshold it is judged against, and say "false-alarm probability" rather
+  than "FAP".

@@ -10,16 +10,23 @@
     <aside class="panel controls">
       <h2>Research run</h2>
       <label>Target dataset<select id="task"></select></label>
-      <div class="pair"><label>Observations<input id="maxObs" type="number" min="0" max="20" value="3"></label><label>Compute rounds<input id="maxRounds" type="number" min="1" max="20" value="4"></label></div>
+      <div class="pair">
+        <label title="Total simulated follow-up points the lab may take">Follow-up points<input id="maxObs" type="number" min="0" max="200" value="30"></label>
+        <label title="Points taken at once when the lab decides it needs more data">Per campaign<input id="perCampaign" type="number" min="1" max="50" value="10"></label>
+      </div>
+      <label title="How many times the lab may refine or observe before it must stop">Decision rounds<input id="maxRounds" type="number" min="1" max="20" value="4"></label>
       <label>Research prompt<textarea id="prompt" rows="5">Find the planets orbiting this star. Distinguish competing aliases and conclude only when the numerical evidence is sufficient.</textarea></label>
       <button id="start">Start autonomous run <span>→</span></button>
-      <p class="hint">Synthetic observations only. Real telescope control is disabled.</p>
+      <p class="hint">The lab observes only when its decision rule finds the data cannot settle the question. Observations are simulated; real telescope control is disabled.</p>
       <div class="facts" id="facts"></div>
     </aside>
     <section class="workspace">
-      <div class="panel chart-panel"><div class="section-title"><div><span class="eyebrow">RADIAL VELOCITY</span><h2 id="targetTitle">Select a target</h2></div><span id="sampleCount"></span></div><svg id="chart" viewBox="0 0 900 320" preserveAspectRatio="none"></svg></div>
-      <div class="metrics" id="metrics"><div><span>Decision</span><strong>—</strong></div><div><span>Follow-ups</span><strong>0</strong></div><div><span>Submissions</span><strong>0</strong></div><div><span>Elapsed</span><strong>—</strong></div></div>
-      <div class="lower"><div class="panel"><div class="section-title"><h2>Research ledger</h2><span id="ledgerCount">0 entries</span></div><div id="ledger" class="ledger empty">Start a run to see evidence, hypotheses, fits, reviews, and decisions.</div></div><div class="panel"><div class="section-title"><h2>Conclusion</h2></div><div id="conclusion" class="conclusion empty">Awaiting analysis.</div></div></div>
+      <div class="panel chart-panel"><div class="section-title"><div><span class="eyebrow">RADIAL VELOCITY</span><h2 id="targetTitle">Select a target</h2></div><span id="sampleCount"></span></div><svg id="chart" viewBox="0 0 900 320" preserveAspectRatio="none"></svg><div class="legend"><span><i class="dot"></i>original data</span><span><i class="dot follow"></i>follow-up observations</span></div></div>
+      <div class="metrics" id="metrics"><div><span>Decision</span><strong>—</strong></div><div><span>Follow-up points</span><strong>0</strong></div><div><span>Submissions</span><strong>0</strong></div><div><span>Elapsed</span><strong>—</strong></div></div>
+      <div class="lower">
+        <div class="panel"><div class="section-title"><h2>Research log</h2><span id="ledgerCount">0 entries</span></div><div id="ledger" class="ledger empty">Start a run to see evidence, hypotheses, fits, reviews and decisions.</div></div>
+        <div class="panel"><div class="section-title"><h2>Conclusion</h2></div><div id="conclusion" class="conclusion empty">Awaiting analysis.</div></div>
+      </div>
     </section>
   </main><script src="/app.js"></script>
 </body></html>

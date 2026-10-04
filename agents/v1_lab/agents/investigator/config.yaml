@@ -39,3 +39,8 @@ prompt: |
   Reply with: the best fit ID, its planets, RMS against the pass limit, BIC, any
   flags, the strongest residual peak with its false-alarm probability, and one
   sentence on whether this hypothesis explains the data.
+
+  Writing. Start your reply with one plain-English sentence on whether this
+  hypothesis explains the data. Give each number with its unit and the
+  threshold it is judged against ("scatter 1.13 m/s, limit 1.58 m/s"; "BIC
+  278.8, lower is better").

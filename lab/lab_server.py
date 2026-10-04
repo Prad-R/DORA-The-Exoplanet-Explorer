@@ -1,13 +1,16 @@
 """Lab tool server (stdio MCP) for the v1 multi-agent arm.
 
 Every sub-agent session starts its own copy of this server, so all shared
-state (hypotheses, fits, verdicts, submissions) lives in the run directory and
-is exposed as one research record through ``ledger``.
+state (hypotheses, fits, verdicts, submissions, follow-up observations) lives in
+the run directory and is exposed as one research record through ``ledger``.
 
-Configured by environment: STARGAZER_TASK, STARGAZER_RUN_DIR.
+Configured by environment: STARGAZER_TASK, STARGAZER_RUN_DIR, and the follow-up
+budget STARGAZER_MAX_OBSERVATIONS (points), STARGAZER_OBS_PER_CAMPAIGN (points
+per observing campaign) and STARGAZER_MAX_COMPUTE_ROUNDS (decision rounds).
 """
 from __future__ import annotations
 
+import functools
 import json
 import os
 import sys
@@ -19,7 +22,7 @@ try:  # MCP <1.0 exposed MCPServer; current MCP uses FastMCP.
 except ModuleNotFoundError:
     from mcp.server.fastmcp import FastMCP as MCPServer
 
-from lab import rv
+from lab import decide, rv
 from lab.episode import FORBIDDEN, from_env
 
 from stargazer.agents.tools.python_repl_tool import _ThreadLocalStdoutProxy, execute_python_repl
@@ -31,9 +34,52 @@ FITS = episode.run_dir / "fits"
 FITS.mkdir(exist_ok=True)
 
 
+def _budget() -> Dict[str, int]:
+    return {
+        "max_points": int(os.environ.get("STARGAZER_MAX_OBSERVATIONS", "30")),
+        "per_campaign": int(os.environ.get("STARGAZER_OBS_PER_CAMPAIGN", "10")),
+        "max_rounds": int(os.environ.get("STARGAZER_MAX_COMPUTE_ROUNDS", "4")),
+    }
+
+
+def _refresh_data() -> None:
+    global data
+    data = rv.Data(episode.times, episode.rvs, episode.sigmas, np.asarray(episode.instruments), episode.star_mass_sun)
+    repl_globals.update(times_days=data.t, rvs_ms=data.y, sigmas_ms=data.s, instruments=data.inst)
+
+
+def synced(fn):
+    """Pick up follow-up observations another agent's server added since the last call."""
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        episode.reload_observations()
+        if len(episode.times) != len(data.t):
+            _refresh_data()
+        return fn(*args, **kwargs)
+    return wrapper
+
+
 def _load_fit(fit_id: str) -> Optional[Dict[str, Any]]:
     path = FITS / f"{fit_id}.json"
     return json.loads(path.read_text()) if path.exists() else None
+
+
+def _is_current(fit: Dict[str, Any]) -> bool:
+    """Whether the fit was made on the data as it stands now."""
+    return fit.get("n_obs", len(fit["residuals"])) == len(data.t)
+
+
+def _fit_model(fit: Dict[str, Any], times: np.ndarray) -> np.ndarray:
+    return np.sum(
+        [rv.planet_rv(times, data.t[0], p) for p in fit["planets"]], axis=0
+    ) if fit["planets"] else np.zeros_like(times)
+
+
+def _residuals(fit: Dict[str, Any]) -> np.ndarray:
+    """Residuals of a fit's model on the current data (recomputed if newer data arrived)."""
+    if _is_current(fit):
+        return np.asarray(fit["residuals"])
+    return rv._stats(data, _fit_model(fit, data.t), fit["n_planets"])["resid"]
 
 
 def _fit_view(fit: Dict[str, Any]) -> Dict[str, Any]:
@@ -46,27 +92,29 @@ def _fit_view(fit: Dict[str, Any]) -> Dict[str, Any]:
     return view
 
 
-def _refresh_data() -> None:
-    """Refresh this server after Episode persisted a follow-up observation."""
-    global data
-    data = rv.Data(episode.times, episode.rvs, episode.sigmas, np.asarray(episode.instruments), episode.star_mass_sun)
-    repl_globals.update(times_days=data.t, rvs_ms=data.y, sigmas_ms=data.s, instruments=data.inst)
+def _store_fit(fit: Dict[str, Any], **extra: Any) -> Dict[str, Any]:
+    fid = episode.next_id("F")
+    fit.update({"id": fid, "n_obs": len(data.t), **extra})
+    (FITS / f"{fid}.json").write_text(json.dumps(fit))
+    episode.append("ledger", {"kind": "fit", **_fit_view(fit)})
+    return fit
 
 
-def _fit_model(fit: Dict[str, Any], times: np.ndarray) -> np.ndarray:
-    return np.sum(
-        [rv.planet_rv(times, data.t[0], p) for p in fit["planets"]], axis=0
-    ) if fit["planets"] else np.zeros_like(times)
+def _refit(fit: Dict[str, Any]) -> Dict[str, Any]:
+    """Refit a fit's planet configuration on the current data, starting from its periods."""
+    new = rv.fit_keplerians(data, [p["P_days"] for p in fit["planets"]], period_tolerance=0.25)
+    return _store_fit(new, hypothesis_id=fit.get("hypothesis_id"), period_tolerance=0.25, refit_of=fit["id"])
 
 
 @mcp.tool()
+@synced
 def task_summary() -> str:
     """Dataset facts and what is left of the budget."""
-    max_observations = int(os.environ.get("STARGAZER_MAX_OBSERVATIONS", "3"))
-    max_rounds = int(os.environ.get("STARGAZER_MAX_COMPUTE_ROUNDS", "4"))
+    b = _budget()
     return json.dumps(
         {
             "n_obs": len(data.t),
+            "follow_up_points_so_far": episode.n_follow_ups,
             "baseline_days": round(data.span, 2),
             "median_sigma_ms": round(float(np.median(data.s)), 3),
             "rv_range_ms": [round(float(data.y.min()), 2), round(float(data.y.max()), 2)],
@@ -75,30 +123,35 @@ def task_summary() -> str:
             "pass_criteria": "RMS <= 1.5 x median sigma, model preferred over a constant by BIC, "
             "correct planet count, and orbital parameters close to the true ones",
             "submissions_left": episode.submissions_left(),
-            "follow_up_observations_left": max(0, max_observations - len(episode.read("observations"))),
-            "compute_rounds_left": max(0, max_rounds - len(episode.read("observe_decisions"))),
+            "follow_up_points_left": max(0, b["max_points"] - episode.n_follow_ups),
+            "points_per_campaign": b["per_campaign"],
+            "decision_rounds_left": max(0, b["max_rounds"] - len(episode.read("rounds"))),
             "seconds_left": int(episode.time_left()),
         }
     )
 
 
 @mcp.tool()
+@synced
 def periodogram(residuals_of_fit: Optional[str] = None, top_k: int = 6) -> str:
     """Generalised Lomb-Scargle peaks of the data, or of the residuals of a fit ID.
 
     Each peak carries its false-alarm probability, the peaks it is a harmonic of,
     and its sampling aliases (periods that the observing cadence makes look alike).
+    Residuals of a fit made before new observations arrived are recomputed on the
+    current data.
     """
     resid = None
     if residuals_of_fit:
         fit = _load_fit(residuals_of_fit)
         if fit is None:
             return f"Unknown fit id {residuals_of_fit!r}."
-        resid = np.asarray(fit["residuals"])
+        resid = _residuals(fit)
     return json.dumps(rv.periodogram(data, resid=resid, top_k=top_k))
 
 
 @mcp.tool()
+@synced
 def propose_hypothesis(periods_days: List[float], rationale: str) -> str:
     """Register a candidate planetary system (one starting period per planet; an
     empty list is the no-planet hypothesis). Returns its hypothesis ID."""
@@ -109,6 +162,7 @@ def propose_hypothesis(periods_days: List[float], rationale: str) -> str:
 
 
 @mcp.tool()
+@synced
 def fit_hypothesis(hypothesis_id: str, period_tolerance: float = 0.1) -> str:
     """Fit Keplerian orbits for a hypothesis by global optimisation and return the fit.
 
@@ -119,16 +173,13 @@ def fit_hypothesis(hypothesis_id: str, period_tolerance: float = 0.1) -> str:
     hyp = next((r for r in episode.read("ledger") if r["kind"] == "hypothesis" and r["id"] == hypothesis_id), None)
     if hyp is None:
         return f"Unknown hypothesis id {hypothesis_id!r}."
-    fit = rv.fit_keplerians(data, hyp["periods_days"], period_tolerance=min(max(period_tolerance, 0.005), 0.5))
-    fid = episode.next_id("F")
-    fit.update({"id": fid, "hypothesis_id": hypothesis_id, "period_tolerance": period_tolerance})
-    (FITS / f"{fid}.json").write_text(json.dumps(fit))
-    view = _fit_view(fit)
-    episode.append("ledger", {"kind": "fit", **view})
-    return json.dumps(view)
+    tol = min(max(period_tolerance, 0.005), 0.5)
+    fit = rv.fit_keplerians(data, hyp["periods_days"], period_tolerance=tol)
+    return json.dumps(_fit_view(_store_fit(fit, hypothesis_id=hypothesis_id, period_tolerance=tol)))
 
 
 @mcp.tool()
+@synced
 def record_verdict(fit_id: str, verdict: str, reasons: str) -> str:
     """Record an independent review of a fit: verdict is 'approve' or 'reject'."""
     if _load_fit(fit_id) is None:
@@ -141,7 +192,9 @@ def record_verdict(fit_id: str, verdict: str, reasons: str) -> str:
 
 @mcp.tool()
 def note(kind: str, text: str) -> str:
-    """Add an entry to the research record. kind: 'evidence', 'plan' or 'decision'."""
+    """Add an entry to the research record. kind: 'evidence', 'plan' or 'decision'.
+
+    Start with one plain-English sentence stating the takeaway; details follow."""
     if kind not in ("evidence", "plan", "decision"):
         return "kind must be 'evidence', 'plan' or 'decision'."
     episode.append("ledger", {"kind": kind, "text": text})
@@ -151,7 +204,7 @@ def note(kind: str, text: str) -> str:
 @mcp.tool()
 def ledger() -> str:
     """The shared research record: evidence, hypotheses, fits, verdicts, plans,
-    decisions and submission feedback, in order."""
+    decisions, observing campaigns and submission feedback, in order."""
     return json.dumps([{k: v for k, v in r.items() if k != "t"} for r in episode.read("ledger")])
 
 
@@ -170,6 +223,7 @@ def _next_step(details: Dict[str, Any]) -> str:
 
 
 @mcp.tool()
+@synced
 def submit_fit(fit_id: str, rationale: str) -> str:
     """Spend one submission on a fit. The server builds the submission from the
     stored fit, so no parameter conversion is needed. Returns per-criterion feedback."""
@@ -197,91 +251,118 @@ def submit_fit(fit_id: str, rationale: str) -> str:
     return json.dumps(outcome)
 
 
-@mcp.tool()
-def observe_or_conclude(fit_ids: List[str]) -> str:
-    """Numerically decide whether to conclude or add one simulated observation.
+def _decision(status: str, summary: str, **fields: Any) -> str:
+    entry = {"kind": "decision", "status": status, "summary": summary, **fields}
+    episode.append("ledger", entry)
+    return json.dumps({k: v for k, v in entry.items() if k != "kind"})
 
-    Pass reviewed competing fit IDs after an analysis round. Evidence is sufficient
-    only when the best fit clears fixed RMS, BIC, residual-signal, detection-strength,
-    fit-quality, review, and model-separation thresholds. Otherwise the tool observes
-    at the feasible future time where the fitted models disagree most. Simulation is
-    available only for synthetic tasks; this tool never exposes simulator truth.
+
+@mcp.tool()
+@synced
+def observe_or_conclude(fit_ids: List[str]) -> str:
+    """Decide, by fixed numerical rules, what the lab needs next. Pass every fit
+    the lab considers a serious candidate (at least two, differing in planet count
+    or periods).
+
+    The leader is the model with the fewest planets that no larger model beats by
+    10 or more in BIC. Then:
+    - `needs_review`: the critic has not reviewed the leader. Nothing is spent.
+    - `refine`: the leader does not fit, leaves a signal, did not converge, or was
+      rejected. More analysis is needed, not more data.
+    - `observe`: the data cannot separate the leader from a rival or cannot pin it
+      down. A campaign of several follow-up points is simulated where the models
+      disagree most, and every fit passed in is refitted on the enlarged data.
+    - `conclude`: every check passed; submit the leader.
+    - `unresolved`: more data is needed but the follow-up budget is spent.
     """
     fits = [_load_fit(fid) for fid in fit_ids]
-    if len(fit_ids) < 2 or any(f is None for f in fits):
-        return "Pass at least two valid competing fit IDs from the current analysis round."
-    ranked = sorted(fits, key=lambda f: f["bic"])
-    best, second = ranked[:2]
-    residual_pg = rv.periodogram(data, resid=np.asarray(best["residuals"]), top_k=1)
-    residual_fap = residual_pg["peaks"][0]["fap"] if residual_pg["peaks"] else 1.0
-    verdicts = [r for r in episode.read("ledger") if r.get("kind") == "verdict" and r.get("fit_id") == best["id"]]
-    approved = bool(verdicts and verdicts[-1].get("verdict") == "approve")
-    min_strength = min((p["K_over_sigma_sqrtN"] for p in best["planets"]), default=0.0)
-    bic_margin = float(second["bic"] - best["bic"])
-    criteria = {
-        "review_approved": approved,
-        "rms_ok": bool(best["rms_ok"]),
-        "delta_bic_vs_null_gte_10": bool(best["delta_bic_vs_null"] >= 10.0),
-        "bic_margin_vs_runner_up_gte_10": bool(bic_margin >= 10.0),
-        "residual_fap_gte_1e_3": bool(residual_fap >= 1e-3),
-        "all_planet_strengths_gte_5": bool(best["planets"] and min_strength >= 5.0),
-        "no_fit_flags": not best["flags"],
-    }
-    evidence = {
-        "best_fit_id": best["id"],
-        "runner_up_fit_id": second["id"],
-        "bic_margin": bic_margin,
-        "rms_ms": best["rms_ms"],
-        "rms_limit_ms": best["rms_limit_ms"],
-        "residual_peak_fap": residual_fap,
-        "minimum_detection_strength": min_strength,
-        "criteria": criteria,
-    }
-    if all(criteria.values()):
-        result = {"status": "conclude", "fit": _fit_view(best), "evidence": evidence,
-                  "uncertainty": "Uncertainty is bounded by the runner-up BIC margin and the residual-periodogram threshold."}
-        episode.append("ledger", {"kind": "decision", **result})
-        return json.dumps(result)
+    missing = [fid for fid, f in zip(fit_ids, fits) if f is None]
+    if missing:
+        return f"Unknown fit id(s): {', '.join(missing)}."
+    if len(fits) < 2:
+        return "Pass at least two competing fits so the decision compares hypotheses."
+    stale = [f for f in fits if not _is_current(f)]
+    if stale:
+        refits = {f["id"]: _refit(f)["id"] for f in stale}
+        return json.dumps({
+            "status": "refitted",
+            "summary": (f"{len(stale)} fit(s) predate the latest observations, so they were refitted on the "
+                        f"current {len(data.t)} points. Have the critic review the new leader, then call "
+                        "observe_or_conclude again with the new fit IDs."),
+            "refits": refits,
+        })
 
-    rounds = len(episode.read("observe_decisions"))
-    observations = len(episode.read("observations"))
-    max_rounds = int(os.environ.get("STARGAZER_MAX_COMPUTE_ROUNDS", "4"))
-    max_observations = int(os.environ.get("STARGAZER_MAX_OBSERVATIONS", "3"))
-    if rounds >= max_rounds or observations >= max_observations or episode.time_left() <= 0:
-        result = {"status": "unresolved", "evidence": evidence,
-                  "reason": "Observation or compute limit reached before the numerical criteria were satisfied."}
-        episode.append("ledger", {"kind": "decision", **result})
-        return json.dumps(result)
-    if episode.task_id.startswith("real_"):
-        result = {"status": "unresolved", "evidence": evidence,
-                  "reason": "Simulated observing and real telescope control are disabled for real-data tasks."}
-        episode.append("ledger", {"kind": "decision", **result})
-        return json.dumps(result)
+    verdicts = {r["fit_id"]: r["verdict"] for r in episode.read("ledger") if r.get("kind") == "verdict"}
+    a = decide.assess(data, fits, None)
+    leader = a["leader"]
+    if leader["id"] not in verdicts:
+        return _decision(
+            "needs_review",
+            f"{leader['id']} ({leader['n_planets']} planet(s)) is the leading model: no larger model beats it by "
+            f"{decide.DECISIVE_BIC:.0f} or more in BIC. Ask the critic to review {leader['id']}, then decide again.",
+            leader=leader["id"])
+    refuted = [[p["P_days"] for p in s["payload"]["planets"]]
+               for s in episode.read("submissions") if s.get("evaluated") and not s.get("success")]
+    a = decide.assess(data, fits, verdicts[leader["id"]], refuted)
 
-    unique_times = np.unique(data.t)
-    cadence = float(np.median(np.diff(unique_times))) if len(unique_times) > 1 else 1.0
-    horizon = max(30.0 * max(cadence, 0.1), 0.25 * data.span)
-    candidates = np.linspace(float(data.t.max() + max(cadence, 0.1)), float(data.t.max() + horizon), 128)
-    predictions = np.stack([_fit_model(f, candidates) for f in ranked])
-    disagreement = np.max(predictions, axis=0) - np.min(predictions, axis=0)
-    chosen = int(np.argmax(disagreement))
+    b = _budget()
+    checks = a["analysis_checks"] + a["data_checks"]
+    evidence = {"leader": leader["id"], "n_planets": leader["n_planets"],
+                "larger_models_not_needed": a["larger_rejected"], "checks": checks}
+    failed_analysis = [c for c in a["analysis_checks"] if not c["passed"]]
+    failed_data = [c for c in a["data_checks"] if not c["passed"]]
+    if not failed_analysis and not failed_data:
+        return _decision(
+            "conclude",
+            f"The data decide the question: {leader['id']} ({leader['n_planets']} planet(s)) fits, leaves no "
+            "signal, beats every simpler model decisively, and no larger model is needed. Submit it.",
+            fit=_fit_view(leader), **evidence)
+
+    # Refining and observing each cost one decision round.
+    if len(episode.read("rounds")) >= b["max_rounds"]:
+        return _decision("unresolved", "The checks are not all met and the decision-round budget is spent. "
+                         + " ".join(c["explanation"] for c in failed_analysis + failed_data), **evidence)
+    episode.append("rounds", {"fit_ids": fit_ids})
+
+    if failed_analysis:
+        return _decision(
+            "refine",
+            f"{leader['id']} needs more analysis before more data would help: "
+            + " ".join(c["explanation"] for c in failed_analysis),
+            **evidence)
+
+    points_left = b["max_points"] - episode.n_follow_ups
+    why = " ".join(c["explanation"] for c in failed_data)
+    if points_left <= 0 or episode.task_id.startswith("real_"):
+        reason = ("Simulated observing is disabled for real-data tasks." if episode.task_id.startswith("real_")
+                  else "The follow-up observation budget is spent.")
+        return _decision("unresolved", f"More data is needed ({why}) but none can be taken. {reason}", **evidence)
+
+    rivals = a["rivals"]
+    longest = max(p["P_days"] for p in leader["planets"])
+    # Long enough to cover the longest fitted orbit, but bounded so one campaign
+    # cannot run for years on a period the data barely constrain.
+    horizon = float(min(max(0.5 * data.span, longest, 30.0), max(2.0 * data.span, 90.0)))
+    plan = decide.schedule_campaign(data, [leader] + rivals, _fit_model,
+                                    min(b["per_campaign"], points_left), horizon)
     sigma = float(np.median(data.s))
     labels, counts = np.unique(data.inst, return_counts=True)
-    row = episode.simulate_observation(float(candidates[chosen]), sigma, str(labels[np.argmax(counts)]))
-    episode.append("observe_decisions", {"fit_ids": fit_ids, "time_days": row["time_days"], "evidence": evidence})
+    instrument = str(labels[np.argmax(counts)])
+    rows = [episode.simulate_observation(t, sigma, instrument) for t in plan["times_days"]]
     _refresh_data()
-    result = {
-        "status": "observe",
-        "observation": row,
-        "expected_model_separation_ms": float(disagreement[chosen]),
-        "observations_used": observations + 1,
-        "observations_left": max_observations - observations - 1,
-        "compute_rounds_left": max_rounds - rounds - 1,
-        "evidence": evidence,
-        "next": "Repeat the existing analyst, hypothesis, investigator, and critic cycle on the updated data.",
-    }
-    episode.append("ledger", {"kind": "decision", **result})
-    return json.dumps(result)
+    episode.append("observe_decisions", {"fit_ids": fit_ids, "times_days": plan["times_days"], "evidence": evidence})
+    refits = {f["id"]: _refit(f)["id"] for f in fits}
+    timing = (f"timed where the competing models disagree most (up to {plan['max_model_separation_sigma']:.1f}× "
+              "the noise) and spread to cover the longest orbit"
+              if plan["max_model_separation_sigma"] >= 1.0 else
+              "spread evenly to extend the time span and the phase coverage of the orbits")
+    return _decision(
+        "observe",
+        f"The current data cannot settle the question: {why} Observed {len(rows)} new points between day "
+        f"{plan['times_days'][0]:.1f} and day {plan['times_days'][-1]:.1f}, {timing}. Every fit was refitted "
+        f"on the {len(data.t)} points; have the critic review the new leader, then decide again.",
+        observations=rows, campaign=plan, refits=refits,
+        follow_up_points_left=points_left - len(rows), **evidence)
 
 
 repl_globals: Dict[str, Any] = {
@@ -291,11 +372,12 @@ repl_globals: Dict[str, Any] = {
     "sigmas_ms": data.s,
     "instruments": data.inst,
     "star_mass_sun": data.star_mass_sun,
-    "fit_residuals": lambda fit_id: np.asarray(_load_fit(fit_id)["residuals"]),
+    "fit_residuals": lambda fit_id: _residuals(_load_fit(fit_id)),
 }
 
 
 @mcp.tool()
+@synced
 def PythonREPL(input_code: str) -> str:
     """A Python REPL for checks the other tools do not cover. Print to see values.
 

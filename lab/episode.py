@@ -29,7 +29,7 @@ if str(STARGAZER) not in sys.path:
 
 from stargazer.bank import TaskBank  # noqa: E402
 from stargazer.env import RvEnv  # noqa: E402
-from stargazer.engine_rebound import simulate_clean_rv  # noqa: E402
+from stargazer.forward_keplerian import simulate_rv_keplerian  # noqa: E402
 from stargazer.limits import DEFAULT_SUBMISSION_MAX_PLANETS  # noqa: E402
 
 BANKS = {
@@ -47,6 +47,9 @@ TIER_BUDGETS = {
 # The REPL runs in this process, which also holds the ground truth. Refuse code
 # that reaches for it; the transcript audit in the runner checks the same terms.
 FORBIDDEN = ("Stargazer_synthetic_task", "Stargazer_real_data_task", "third_party", "lab.episode", "TaskBank", "environ")
+
+
+OBS_KEYS = ("times_days", "rvs_ms", "sigmas_ms", "instruments")
 
 
 def bank_for(task_id: str) -> str:
@@ -74,7 +77,9 @@ class Episode:
         # Submission counting is done in run_dir state, not by the env.
         self.env = RvEnv(task=self.task, submission_mode="params_and_model", max_steps=10**6)
         self.obs, _ = self.env.reset()
-        self._load_added_observations()
+        self._base = {k: list(self.obs[k]) for k in OBS_KEYS}
+        self.n_follow_ups = 0
+        self.reload_observations()
         with self._locked():
             if not (self.run_dir / "state.json").exists():
                 (self.run_dir / "state.json").write_text(json.dumps(self._read_state()))
@@ -100,15 +105,19 @@ class Episode:
     def star_mass_sun(self) -> float:
         return float(self.obs["meta"]["star_mass_sun"])
 
-    def _load_added_observations(self) -> None:
-        """Overlay synthetic follow-up observations without changing TaskBank data."""
+    def reload_observations(self) -> bool:
+        """Overlay the follow-up observations on disk onto the TaskBank data.
+
+        Every sub-agent runs its own tool server, so each must re-read the file
+        to see observations another process added. Returns True if anything changed.
+        """
         rows = self.read("observations")
-        if not rows:
-            return
-        self.obs["times_days"] = list(self.obs["times_days"]) + [r["time_days"] for r in rows]
-        self.obs["rvs_ms"] = list(self.obs["rvs_ms"]) + [r["rv_ms"] for r in rows]
-        self.obs["sigmas_ms"] = list(self.obs["sigmas_ms"]) + [r["sigma_ms"] for r in rows]
-        self.obs["instruments"] = list(self.obs["instruments"]) + [r["instrument"] for r in rows]
+        if len(rows) == self.n_follow_ups:
+            return False
+        for key, field in zip(OBS_KEYS, ("time_days", "rv_ms", "sigma_ms", "instrument")):
+            self.obs[key] = self._base[key] + [r[field] for r in rows]
+        self.n_follow_ups = len(rows)
+        return True
 
     def simulate_observation(self, time_days: float, sigma_ms: float, instrument: str) -> Dict[str, Any]:
         """Privately simulate one follow-up datum; no truth parameters are returned."""
@@ -121,7 +130,12 @@ class Episode:
         gamma = self.task.config.star.gamma_ms + next(
             (x.gamma_ms for x in self.task.config.instruments if x.label == instrument), 0.0
         )
-        model = float(simulate_clean_rv(self.task.config, [time_days])[0] + gamma)
+        # TaskBank replaces the stored RVs with an analytic Keplerian signal and
+        # rewrites config.planets to match, so follow-ups must use the same model.
+        # It takes its phase reference from times[0], so lead with the task's first epoch.
+        t_ref = float(self.task.observations.times_days[0])
+        model = float(simulate_rv_keplerian(self.task.config.planets, np.array([t_ref, time_days]),
+                                            float(self.task.config.star.M_star_sun), gamma_ms=0.0)[1] + gamma)
         jitter = next(
             (x.sigma_jitter_ms for x in self.task.config.instruments if x.label == instrument),
             self.task.config.noise.sigma_jitter_ms,
@@ -134,10 +148,7 @@ class Episode:
             "kind": "simulated_follow_up",
         }
         self.append("observations", row)
-        self.obs["times_days"] = list(self.obs["times_days"]) + [row["time_days"]]
-        self.obs["rvs_ms"] = list(self.obs["rvs_ms"]) + [row["rv_ms"]]
-        self.obs["sigmas_ms"] = list(self.obs["sigmas_ms"]) + [row["sigma_ms"]]
-        self.obs["instruments"] = list(self.obs["instruments"]) + [row["instrument"]]
+        self.reload_observations()
         return row
 
     # -- shared on-disk state ----------------------------------------------

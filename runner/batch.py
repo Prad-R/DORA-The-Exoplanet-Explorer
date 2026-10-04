@@ -24,6 +24,7 @@ OMNIGENT_RUNTIME = REPO / ".omnigent-runtime"
 sys.path.insert(0, str(REPO))
 
 from lab.episode import FORBIDDEN  # noqa: E402
+from lab.report import render_report  # noqa: E402
 from runner.materialize import materialize  # noqa: E402
 
 SESSION_RE = re.compile(r"/c/([0-9a-f]{32})")
@@ -33,7 +34,7 @@ GRACE_S = 180  # startup and shutdown allowance on top of the task's time budget
 def _jsonl(path: Path) -> list:
     if not path.exists():
         return []
-    return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
 def _pid_running(pid: int) -> bool:
@@ -44,9 +45,9 @@ def _pid_running(pid: int) -> bool:
         return False
 
 
-def run_task(arm: str, task_id: str, out: Path, max_observations: int = 3,
+def run_task(arm: str, task_id: str, out: Path, max_observations: int = 30,
              max_compute_rounds: int = 4, research_prompt: str = "",
-             live_logs: bool = False) -> dict:
+             live_logs: bool = False, obs_per_campaign: int = 10) -> dict:
     omnigent = shutil.which("omnigent")
     if not omnigent:
         raise RuntimeError(
@@ -72,6 +73,7 @@ def run_task(arm: str, task_id: str, out: Path, max_observations: int = 3,
     agent_dir, brief = materialize(arm, task_id, run_dir,
                                    max_observations=max_observations,
                                    max_compute_rounds=max_compute_rounds,
+                                   obs_per_campaign=obs_per_campaign,
                                    research_prompt=research_prompt)
     (run_dir / "brief.md").write_text(brief)
     budget = json.loads((run_dir / "budget.json").read_text())
@@ -92,12 +94,15 @@ def run_task(arm: str, task_id: str, out: Path, max_observations: int = 3,
         "PYTHONUTF8": "1",
         "PYTHONIOENCODING": "utf-8",
     }
-    with open(run_dir / "omnigent.out", "w") as fo, open(run_dir / "omnigent.err", "w") as fe:
+    with open(run_dir / "omnigent.out", "w", encoding="utf-8") as fo, \
+            open(run_dir / "omnigent.err", "w", encoding="utf-8") as fe:
         popen_output = subprocess.PIPE if live_logs else fo
         proc = subprocess.Popen(
             [omnigent, "run", str(agent_dir), "-p", brief],
             stdin=subprocess.DEVNULL, stdout=popen_output,
-            stderr=subprocess.STDOUT if live_logs else fe, text=live_logs, cwd=run_dir,
+            stderr=subprocess.STDOUT if live_logs else fe, cwd=run_dir,
+            # Decode the UTF-8 forced above rather than the platform default codec.
+            **({"encoding": "utf-8", "errors": "replace"} if live_logs else {}),
             # lab.policies is imported by the Omnigent runner.
             env=omnigent_env,
         )
@@ -121,16 +126,20 @@ def run_task(arm: str, task_id: str, out: Path, max_observations: int = 3,
             tee.join(timeout=5)
     duration = time.time() - started
 
-    session = SESSION_RE.search((run_dir / "omnigent.err").read_text())
+    # With --live-logs stderr is merged into omnigent.out, so look in both.
+    session = SESSION_RE.search("".join((run_dir / f"omnigent.{s}").read_text(encoding="utf-8", errors="replace")
+                                        for s in ("err", "out")))
     by_model: dict = {}
     cost, model, tool_calls, leak_hits, children = 0.0, None, {}, [], []
+    final_report = None
 
     def export(session_id: str, name: str) -> None:
         """Export one session (the top agent or a sub-agent) and fold in its usage and calls."""
-        nonlocal cost, model
+        nonlocal cost, model, final_report
         path = run_dir / f"{name}.jsonl"
+        # Same env as the run, so export looks in .omnigent-runtime rather than ~/.omnigent.
         subprocess.run([omnigent, "session", "export", "--id", session_id, "--output", str(path)],
-                       capture_output=True)
+                       capture_output=True, env=omnigent_env)
         seen = set()
         for rec in _jsonl(path):
             if rec.get("record_type") == "session_meta":
@@ -151,6 +160,10 @@ def run_task(arm: str, task_id: str, out: Path, max_observations: int = 3,
                 for child in re.findall(r'"conversation_id": "([0-9a-f]{32})"', str(rec.get("output"))):
                     if child not in children:
                         children.append(child)
+            # The PI's last message is the lab's report.
+            if name == "transcript" and rec.get("type") == "message" and rec.get("role") == "assistant":
+                text = "".join(c.get("text", "") for c in rec.get("content") or [] if isinstance(c, dict))
+                final_report = text.strip() or final_report
 
     if session:
         export(session.group(1), "transcript")
@@ -179,7 +192,9 @@ def run_task(arm: str, task_id: str, out: Path, max_observations: int = 3,
         "submissions": len(subs),
         "submitted": bool(subs),
         "follow_up_observations": len(observations),
+        "observing_campaigns": len(_jsonl(state_dir / "observe_decisions.jsonl")),
         "final_decision": decisions[-1]["status"] if decisions else None,
+        "final_report": final_report,
         "best_criteria": {c: bool(best["success_details"].get(c)) for c in criteria} if best else None,
         "best_match_score": best["success_details"].get("match_score") if best else None,
         "identical_resubmissions": len(subs) - len({json.dumps(s["payload"]["planets"], sort_keys=True) for s in subs}),
@@ -197,7 +212,9 @@ def run_task(arm: str, task_id: str, out: Path, max_observations: int = 3,
     # A run that never opened a session is a harness failure, not a result: leave
     # no result.json so the next invocation retries it.
     if session:
-        result_path.write_text(json.dumps(result, indent=2))
+        result_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
+        (run_dir / "report.md").write_text(
+            render_report(task_id, _jsonl(state_dir / "ledger.jsonl"), final_report), encoding="utf-8")
     lock.unlink(missing_ok=True)
     return result
 
@@ -208,11 +225,14 @@ def main() -> None:
     ap.add_argument("--tasks", required=True, help="file with one task id per line, or comma-separated ids")
     ap.add_argument("--out", required=True)
     ap.add_argument("--workers", type=int, default=2)
-    ap.add_argument("--max-observations", type=int, default=3)
+    ap.add_argument("--max-observations", type=int, default=30, help="total follow-up points")
+    ap.add_argument("--obs-per-campaign", type=int, default=10, help="follow-up points per observing campaign")
     ap.add_argument("--max-compute-rounds", type=int, default=4)
     ap.add_argument("--prompt", default="", help="research prompt prepended to the task brief")
     ap.add_argument("--live-logs", action="store_true", help="tee Omnigent output to this terminal and run files")
     args = ap.parse_args()
+    # Relayed Omnigent output is UTF-8; don't re-encode it with a Windows codepage.
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
     src = Path(args.tasks)
     lines = src.read_text().splitlines() if src.exists() else args.tasks.split(",")
@@ -223,7 +243,8 @@ def main() -> None:
     results = []
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         futures = {pool.submit(run_task, args.arm, t, out, args.max_observations,
-                               args.max_compute_rounds, args.prompt, args.live_logs): t for t in tasks}
+                               args.max_compute_rounds, args.prompt, args.live_logs,
+                               args.obs_per_campaign): t for t in tasks}
         for fut in as_completed(futures):
             task_id = futures[fut]
             try:
