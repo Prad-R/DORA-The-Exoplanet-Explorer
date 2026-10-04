@@ -1,0 +1,49 @@
+{
+  "arm": "v1_lab",
+  "task_id": "real_010",
+  "tier": "hard",
+  "difficulty": 2,
+  "solved": false,
+  "submissions": 1,
+  "submitted": true,
+  "follow_up_observations": 0,
+  "observing_campaigns": 0,
+  "final_decision": "unresolved",
+  "final_report": "This notice was for results I had already read, so the inbox is now empty and nothing has changed. The run ended as **unresolved**:\n\n- **Secure:** one planet at 2.22 days, with an amplitude of about 204 m/s and a nearly circular orbit.\n- **Not settled:** whether the weak signals at 3.8 and 5.65 days are planets or starspots on a star rotating every ~11.5 days.\n- **Budget:** one submission was used and 9 of the 10 remain. No new observations can be taken for this real-data target.",
+  "best_criteria": {
+    "ok_delta_bic": true,
+    "ok_rms": true,
+    "ok_match": false,
+    "ok_count": false
+  },
+  "best_match_score": 0.4066153349560022,
+  "identical_resubmissions": 0,
+  "tool_calls": {
+    "ToolSearch": 15,
+    "sys_read_inbox": 12,
+    "sys_session_send": 13,
+    "lab__task_summary": 4,
+    "lab__propose_hypothesis": 11,
+    "lab__note": 11,
+    "lab__observe_or_conclude": 4,
+    "lab__submit_fit": 1,
+    "lab__periodogram": 15,
+    "lab__ledger": 11,
+    "lab__fit_hypothesis": 12,
+    "lab__record_verdict": 2
+  },
+  "sub_agent_sessions": 13,
+  "tokens": {
+    "input_tokens": 332,
+    "output_tokens": 68112,
+    "cache_read_input_tokens": 2332742,
+    "cache_creation_input_tokens": 401117
+  },
+  "cost_usd": 3.8357014000000005,
+  "model": "claude-opus-5-5",
+  "duration_s": 523.5,
+  "timed_out": false,
+  "exit_code": 0,
+  "session_id": "52af41f669a647bbb1cb566b4df36951",
+  "leak_terms_in_tool_args": []
+}
