@@ -1,0 +1,7 @@
+# Plain-agent baseline for the observing tasks that have no v0 run on main.
+seed45_diff4
+seed22_diff4
+seed38_diff4
+seed48_diff4
+seed21_diff5
+seed17_diff8

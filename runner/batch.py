@@ -14,6 +14,7 @@ import re
 import shutil
 import subprocess
 import sys
+import threading
 import time
 from threading import Thread
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -29,6 +30,13 @@ from runner.materialize import materialize  # noqa: E402
 
 SESSION_RE = re.compile(r"/c/([0-9a-f]{32})")
 GRACE_S = 180  # startup and shutdown allowance on top of the task's time budget
+LIMIT_RE = re.compile(r"hit your (session|usage|weekly) limit[^\"\
+]*", re.I)
+
+# Set when the account's usage limit is seen or the cost cap is reached: no new
+# task starts after that, so a limit costs at most the tasks already in flight.
+stop = threading.Event()
+stop_reason = ""
 
 
 def _jsonl(path: Path) -> list:
@@ -45,9 +53,43 @@ def _pid_running(pid: int) -> bool:
         return False
 
 
+def _omnigent_env(live_logs: bool = False) -> dict:
+    # Windows installations may deny writes to ~/.omnigent. Keep transient
+    # Omnigent state and its own diagnostics inside this writable checkout.
+    OMNIGENT_RUNTIME.mkdir(parents=True, exist_ok=True)
+    return {
+        **os.environ,
+        "PYTHONPATH": str(REPO),
+        "OMNIGENT_DATA_DIR": str(OMNIGENT_RUNTIME),
+        "OMNIGENT_CONFIG_HOME": str(OMNIGENT_RUNTIME),
+        "OMNIGENT_LOG_TO_STDERR": "1" if live_logs else "0",
+        # Omnigent's host protocol emits Unicode status markers. Force UTF-8
+        # for its Windows child processes instead of the legacy cp1252 codec.
+        "PYTHONUTF8": "1",
+        "PYTHONIOENCODING": "utf-8",
+        # Keep the operator's claude.ai connectors (Drive, mail, ...) out of the
+        # benchmark agent's toolset: they are not part of either arm.
+        "ENABLE_CLAUDEAI_MCP_SERVERS": "false",
+    }
+
+
+def start_host() -> None:
+    """Start Omnigent's background host from the repo root.
+
+    Otherwise the first ``omnigent run`` starts it with that task's run directory
+    as its working directory, and on Windows the directory then cannot be moved
+    or deleted while the host lives.
+    """
+    omnigent = shutil.which("omnigent")
+    if omnigent:
+        subprocess.run([omnigent, "start", "--no-open", "--non-interactive"], cwd=REPO,
+                       env=_omnigent_env(), stdin=subprocess.DEVNULL, capture_output=True)
+
+
 def run_task(arm: str, task_id: str, out: Path, max_observations: int = 30,
              max_compute_rounds: int = 4, research_prompt: str = "",
              live_logs: bool = False, obs_per_campaign: int = 10) -> dict:
+    global stop_reason
     omnigent = shutil.which("omnigent")
     if not omnigent:
         raise RuntimeError(
@@ -57,7 +99,9 @@ def run_task(arm: str, task_id: str, out: Path, max_observations: int = 30,
     run_dir = out / task_id
     result_path = run_dir / "result.json"
     if result_path.exists():
-        return json.loads(result_path.read_text())
+        return {**json.loads(result_path.read_text()), "cached": True}
+    if stop.is_set():
+        return None
     # Several batch processes may share an output directory; one task, one owner.
     lock = out / f".{task_id}.lock"
     if lock.exists():
@@ -75,25 +119,12 @@ def run_task(arm: str, task_id: str, out: Path, max_observations: int = 30,
                                    max_compute_rounds=max_compute_rounds,
                                    obs_per_campaign=obs_per_campaign,
                                    research_prompt=research_prompt)
-    (run_dir / "brief.md").write_text(brief)
+    (run_dir / "brief.md").write_text(brief, encoding="utf-8")
     budget = json.loads((run_dir / "budget.json").read_text())
 
     started = time.time()
     timed_out = False
-    # Windows installations may deny writes to ~/.omnigent. Keep transient
-    # Omnigent state and its own diagnostics inside this writable checkout.
-    OMNIGENT_RUNTIME.mkdir(parents=True, exist_ok=True)
-    omnigent_env = {
-        **os.environ,
-        "PYTHONPATH": str(REPO),
-        "OMNIGENT_DATA_DIR": str(OMNIGENT_RUNTIME),
-        "OMNIGENT_CONFIG_HOME": str(OMNIGENT_RUNTIME),
-        "OMNIGENT_LOG_TO_STDERR": "1" if live_logs else "0",
-        # Omnigent's host protocol emits Unicode status markers. Force UTF-8
-        # for its Windows child processes instead of the legacy cp1252 codec.
-        "PYTHONUTF8": "1",
-        "PYTHONIOENCODING": "utf-8",
-    }
+    omnigent_env = _omnigent_env(live_logs)
     with open(run_dir / "omnigent.out", "w", encoding="utf-8") as fo, \
             open(run_dir / "omnigent.err", "w", encoding="utf-8") as fe:
         popen_output = subprocess.PIPE if live_logs else fo
@@ -209,13 +240,24 @@ def run_task(arm: str, task_id: str, out: Path, max_observations: int = 30,
         "session_id": session.group(1) if session else None,
         "leak_terms_in_tool_args": sorted(set(leak_hits)),
     }
-    # A run that never opened a session is a harness failure, not a result: leave
-    # no result.json so the next invocation retries it.
-    if session:
-        result_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
-        (run_dir / "report.md").write_text(
-            render_report(task_id, _jsonl(state_dir / "ledger.jsonl"), final_report), encoding="utf-8")
+    # A run that never reached the model, or that the account's usage limit cut
+    # short, is a harness failure and not a result. Keep its files for inspection
+    # under <out>_invalid/ and leave the task to be retried by the next invocation.
+    logs = "".join(p.read_text(encoding="utf-8", errors="ignore")
+                   for p in [run_dir / "omnigent.out", run_dir / "omnigent.err", *run_dir.glob("transcript*.jsonl")])
+    limit = LIMIT_RE.search(logs)
     lock.unlink(missing_ok=True)
+    if limit or not (session and model):
+        if limit:
+            stop_reason = stop_reason or f"account limit: {limit.group(0)}"
+            stop.set()
+        invalid = out.with_name(out.name + "_invalid") / f"{task_id}-{int(started)}"
+        invalid.parent.mkdir(exist_ok=True)
+        shutil.move(str(run_dir), str(invalid))
+        return {**result, "invalid": "usage limit" if limit else "no model response"}
+    result_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
+    (run_dir / "report.md").write_text(
+        render_report(task_id, _jsonl(state_dir / "ledger.jsonl"), final_report), encoding="utf-8")
     return result
 
 
@@ -229,6 +271,8 @@ def main() -> None:
     ap.add_argument("--obs-per-campaign", type=int, default=10, help="follow-up points per observing campaign")
     ap.add_argument("--max-compute-rounds", type=int, default=4)
     ap.add_argument("--prompt", default="", help="research prompt prepended to the task brief")
+    ap.add_argument("--max-cost", type=float, default=None,
+                    help="stop starting tasks once this invocation has spent this many USD")
     ap.add_argument("--live-logs", action="store_true", help="tee Omnigent output to this terminal and run files")
     args = ap.parse_args()
     # Relayed Omnigent output is UTF-8; don't re-encode it with a Windows codepage.
@@ -240,7 +284,9 @@ def main() -> None:
     out = (REPO / args.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
 
-    results = []
+    global stop_reason
+    start_host()
+    results, spent = [], 0.0
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         futures = {pool.submit(run_task, args.arm, t, out, args.max_observations,
                                args.max_compute_rounds, args.prompt, args.live_logs,
@@ -252,16 +298,30 @@ def main() -> None:
             except Exception as exc:
                 print(f"[error] {task_id}: {exc}", file=sys.stderr, flush=True)
                 continue
-            if r is None:  # owned by another batch process
+            if r is None:  # not started: stopped, or owned by another batch process
+                continue
+            if r.get("invalid"):
+                print(f"[invalid] {r['task_id']:<18} {r['invalid']}; will be retried on the next run", flush=True)
                 continue
             results.append(r)
+            if not r.get("cached"):
+                spent += r["cost_usd"] or 0.0
             print(
                 f"[{len(results)}/{len(tasks)}] {r['task_id']:<18} {r['tier']:<6} "
                 f"solved={r['solved']!s:<5} subs={r['submissions']} "
                 f"cost=${(r['cost_usd'] or 0):.2f} {r['duration_s']:.0f}s"
-                + (" TIMEOUT" if r["timed_out"] else ""),
+                + (" TIMEOUT" if r["timed_out"] else "") + (" (cached)" if r.get("cached") else ""),
                 flush=True,
             )
+            if args.max_cost is not None and spent >= args.max_cost and not stop.is_set():
+                stop_reason = f"cost cap ${args.max_cost:.2f} reached (${spent:.2f} spent)"
+                stop.set()
+    left = len(tasks) - len(results)
+    print(f"Finished {len(results)}/{len(tasks)} tasks, ${spent:.2f} spent this run."
+          + (f" Stopped early: {stop_reason}. {left} task(s) left; rerun the same command to resume."
+             if stop.is_set() else ""),
+          flush=True)
+    sys.exit(3 if stop.is_set() else 0)
 
 
 if __name__ == "__main__":

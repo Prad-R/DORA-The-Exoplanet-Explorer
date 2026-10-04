@@ -1,6 +1,17 @@
 .venv/
 .omnigent-runtime/
-runs/
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# Run output. Only result sets someone works from are tracked; trial runs,
+# *_invalid runs and the UI access key (runs/ui-access-key.txt) stay local.
+runs/*
+!runs/smoke/
+!runs/v1_obs/
+# Per-run files that are regenerated or machine-specific:
+# the materialized agent copy (absolute paths), raw CLI output, lock files.
+runs/*/*/agent/
+runs/*/*/omnigent.out
+runs/*/*/omnigent.err
+.lock

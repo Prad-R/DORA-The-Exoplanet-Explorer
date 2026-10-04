@@ -1,0 +1,19 @@
+# Observing experiment: v1 lab with simulated follow-up (30 points max, campaigns of 10, 4 rounds).
+# Ordered by priority, so a cost cap or usage limit cuts the least informative tasks last.
+#
+# Data-limited Medium/Hard tasks: the true planets pass, the oracle fit fails only the
+# match criterion, and the weakest planet's detection strength (K/sigma*sqrt(N/2), from
+# experiments/oracle.json) sits where ~30 extra points could lift it toward the ~50 a
+# pass needs. If observing helps anywhere, it is here.
+seed15_diff5     # strength 42.8, 2 planets; v0 on main failed
+seed45_diff4     # strength 39.1, 2 planets
+seed22_diff4     # strength 53.7, 1 planet
+seed6_diff4      # strength 29.5, 2 planets; v0 on main failed
+seed38_diff4     # strength 28.9, 1 planet
+seed48_diff4     # strength 72.0, 1 planet; oracle match 0.80, just below threshold
+seed21_diff5     # strength 20.8, 2 planets
+seed17_diff8     # hard, strength 17.1, 3 planets
+# Controls: tasks the v1 lab without observing already ran on main (runs/v1).
+seed54_diff6     # oracle passes; v0 first over-counted planets
+seed96_diff3     # oracle passes; both arms solved
+seed196_diff10   # hard, third planet below the noise; both arms failed count+match

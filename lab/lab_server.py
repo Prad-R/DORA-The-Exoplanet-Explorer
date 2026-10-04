@@ -17,6 +17,10 @@ import sys
 from typing import Any, Dict, List, Optional
 
 import numpy as np
+# Load SciPy's compiled modules now, before the stdio loop starts. On Windows a
+# DLL first loaded by agent code, while the MCP reader thread sits in a blocking
+# read on stdin, waits for that read to finish: the tool call deadlocks.
+import scipy.integrate, scipy.interpolate, scipy.linalg, scipy.optimize, scipy.signal, scipy.special, scipy.stats  # noqa: E401,F401
 try:  # MCP <1.0 exposed MCPServer; current MCP uses FastMCP.
     from mcp.server.mcpserver import MCPServer
 except ModuleNotFoundError:

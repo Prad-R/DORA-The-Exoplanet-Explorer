@@ -1,0 +1,26 @@
+fit,hypothesis,refit_of,n_obs,n_planets,periods_days,rms_ms,rms_ok,bic,critic,submitted,offline_match_score,offline_ok_count,offline_ok_match,offline_would_pass
+F1,H1,,63,1,15.27,13.804,False,1690.8,,False,0.053,False,False,False
+F2,H2,,63,2,15.28 + 1.72,11.847,False,1338.6,,False,0.314,True,False,False
+F3,H5,,63,2,16.66 + 11.17,3.602,True,392.4,,False,0.861,True,True,True
+F4,H5,,63,2,16.87 + 11.34,3.545,True,389.4,approve,True,0.769,True,False,False
+F5,H3,,63,2,16.80 + 11.28,3.551,True,389.7,,False,0.82,True,True,True
+F6,H4,,63,3,16.73 + 11.21 + 6.84,3.307,True,398.0,,False,0.586,False,False,False
+F7,H3,,63,2,16.87 + 11.34,3.545,True,389.4,,False,0.769,True,False,False
+F8,H6,,63,2,16.03 + 1.08,12.921,False,1536.1,,False,0.447,True,False,False
+F9,H7,,63,2,1.07 + 11.91,19.759,False,3196.1,,False,0.047,True,False,False
+F10,H8,,63,2,15.18 + 20.41,8.804,False,871.8,,False,0.138,True,False,False
+F11,H6,,63,2,15.43 + 1.08,12.352,False,1429.5,,False,0.321,True,False,False
+F12,H9,,63,2,37.10 + 12.47,15.536,False,2088.9,,False,0.019,True,False,False
+F13,H8,,63,2,11.81 + 17.29,3.696,True,397.5,,False,0.438,True,False,False
+F14,H7,,63,2,1.07 + 12.47,18.006,False,2704.3,,False,0.087,True,False,False
+F15,H9,,63,2,23.61 + 14.49,8.754,False,865.3,,False,0.081,True,False,False
+F16,H5,F4,73,2,16.72 + 11.27,3.503,True,443.0,reject / reject,False,0.862,True,True,True
+F17,H8,F13,73,2,11.27 + 16.72,3.503,True,443.0,,False,0.862,True,True,True
+F18,H4,F6,73,3,16.71 + 11.28 + 5.61,3.039,True,438.4,,False,0.444,False,False,False
+F19,H6,F11,73,2,16.07 + 1.08,13.995,False,2023.3,,False,0.481,True,False,False
+F20,H7,F14,73,2,1.08 + 15.59,14.582,False,2167.7,,False,0.344,True,False,False
+F21,H9,F15,73,2,17.71 + 11.49,9.781,False,1160.9,,False,0.414,True,False,False
+F22,H10,,73,2,16.31 + 5.84,13.413,False,1885.9,,False,0.287,True,False,False
+F23,H11,,73,2,8.99 + 12.09,21.997,False,4502.1,,False,0.044,True,False,False
+F24,H12,,73,2,16.33 + 35.36,12.406,False,1662.2,,False,0.252,True,False,False
+F25,H13,,73,2,11.99 + 35.69,17.972,False,3117.4,,False,0.025,True,False,False

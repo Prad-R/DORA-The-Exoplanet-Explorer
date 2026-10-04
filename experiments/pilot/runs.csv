@@ -1,0 +1,6 @@
+run,task,arm,tier,difficulty,solved,submissions,match_scores,ok_rms,ok_delta_bic,ok_count,ok_match,follow_up_points,observing_campaigns,sub_agent_sessions,tool_calls,output_tokens,cache_read_tokens,cost_usd,duration_s,timed_out,model
+this branch: plain agent,seed44_diff2,v0,easy,2,True,1,0.954,True,True,True,True,0,0,0,8,4648,120171,0.151,82.4,False,claude-opus-5-5
+main: plain agent,seed44_diff2,v0,easy,2,True,1,0.954,True,True,True,True,0,0,0,6,3118,88866,0.145,47.7,False,claude-opus-5-5
+"main: lab, no observing",seed44_diff2,v1,easy,2,True,1,0.954,True,True,True,True,0,0,4,33,22461,586974,1.233,140.6,False,claude-opus-5-5
+this branch: lab with observing,seed15_diff5,v1,medium,5,False,1,0.769,True,True,True,False,10,1,16,138,71926,3676764,4.905,558.7,False,claude-opus-5-5
+main: plain agent,seed15_diff5,v0,medium,5,False,1,0.769,True,True,True,False,0,0,0,11,15068,226217,0.505,467.1,False,claude-opus-5-5
